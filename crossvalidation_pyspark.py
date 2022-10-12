@@ -38,7 +38,7 @@ class CrossValidationPySpark:
         dt = DecisionTreeClassifier()
         pipeline = Pipeline(stages=[dt, ])
         param_grid = ParamGridBuilder() \
-            .addGrid(dt.maxDepth, [4, 5, 6]).addGrid(dt.maxBins, [42]).build()
+            .addGrid(dt.maxDepth, [4, 5, 6]).addGrid(dt.maxBins, [42, ]).build()
             # .addGrid(dt.minInstancesPerNode, [1, 2, 3]) \
             # .addGrid(dt.maxBins, [16, 32, 64]) \
             # .build()
@@ -46,7 +46,7 @@ class CrossValidationPySpark:
                                   estimatorParamMaps=param_grid,
                                   evaluator=BinaryClassificationEvaluator(),
                                   numFolds=2)
-        self.model = crossval.fit(self.dataset.df)
+        self.model = crossval.fit(self.dataset.df_assembler)
         self.delta_time = datetime.now() - time_initial
 
     def get_metrics(self):

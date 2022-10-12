@@ -41,7 +41,7 @@ class MapReduceIDR3:
             categoricalFeaturesInfo={},
             impurity='entropy',
             maxDepth=5,
-            maxBins=32, )
+            maxBins=42, )
         self.delta_time = datetime.now() - time_initial
 
     def predict(self):

@@ -28,6 +28,7 @@ class Dataset:
         self.target = target
         self.schema = None
         self.df = None
+        self.df_assembler = None
         log('Dataset : Starting')
 
     def load(self):
@@ -100,8 +101,9 @@ class Dataset:
             indexer_model = indexer.fit(self.df)
             self.df = indexer_model.transform(self.df)
         assembler = VectorAssembler(inputCols=columns, outputCol='features')
-        self.df = assembler.transform(self.df)
-        self.df = self.df.select('features', 'label')
+        self.df_assembler = assembler.transform(self.df)
+        self.df_assembler = self.df_assembler.select('features', 'label')
+        self.df = self.df.select(columns + ['label'])
 
     def multiply_dataset(self, multiply):
         appended = self.df
