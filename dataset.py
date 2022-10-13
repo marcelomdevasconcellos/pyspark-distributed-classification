@@ -10,6 +10,8 @@ from sklearn.impute import SimpleImputer
 from pyspark.sql.functions import lit
 from pyspark.sql.functions import col, sum
 from pyspark.sql.functions import udf, col
+from pyspark.mllib.linalg import Vectors
+from pyspark.sql.types import Row
 from pyspark.sql.types import IntegerType
 from pyspark.sql import SparkSession
 from pyspark import SparkContext
@@ -17,7 +19,8 @@ from pyspark.mllib.tree import DecisionTree, DecisionTreeModel
 from pyspark.mllib.util import MLUtils
 from pyspark.mllib.regression import LabeledPoint
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType, LongType
-
+from pyspark.ml.feature import StringIndexer
+from pyspark.ml.feature import VectorAssembler
 
 class Dataset:
     def __init__(self, spark, filename, num_fields, categorical_fields, target):
@@ -92,18 +95,57 @@ class Dataset:
             self.df = self.one_hot_encode(column_name)
 
     def string_indexer(self):
-        from pyspark.ml.feature import StringIndexer
-        from pyspark.ml.feature import VectorAssembler
+
         columns = self.num_fields
         for column_name in self.categorical_fields:
             columns.append(column_name+'_idx')
             indexer = StringIndexer(inputCol=column_name, outputCol=column_name+'_idx')
             indexer_model = indexer.fit(self.df)
             self.df = indexer_model.transform(self.df)
-        assembler = VectorAssembler(inputCols=columns, outputCol='features')
-        self.df_assembler = assembler.transform(self.df)
-        self.df_assembler = self.df_assembler.select('features', 'label')
-        self.df = self.df.select(columns + ['label'])
+        self.df = self.df.select(['label', ] + [col(c).cast(IntegerType()) for c in columns])
+
+    def assemble_features(self):
+        # columns = self.num_fields
+        # for column_name in self.categorical_fields:
+        #     columns.append(column_name + '_idx')
+        # print(columns)
+        # assembler = VectorAssembler(inputCols=columns, outputCol='features')
+        # df_assembler = assembler.transform(self.df)
+        # self.df = None
+        # self.df = df_assembler.select('features', 'label')
+        self.df = self.df.rdd.map(lambda r: Row(
+            label=r.label,
+            #         age = r.age,
+            #         fnlwgt = r.fnlwgt,
+            #         education_num = r.education_num,
+            #         capital_gain = r.capital_gain,
+            #         capital_loss = r.capital_loss,
+            #         hours_per_week = r.hours_per_week,
+            #         workclass_idx = r.workclass_idx,
+            #         education_idx = r.education_idx,
+            #         marital_status_idx = r.marital_status_idx,
+            #         occupation_idx = r.occupation_idx,
+            #         relationship_idx = r.relationship_idx,
+            #         race_idx = r.race_idx,
+            #         sex_idx = r.sex_idx,
+            #         native_country_idx = r.native_country_idx,
+            features=Vectors.dense(
+                r.age,
+                r.fnlwgt,
+                r.education_num,
+                r.capital_gain,
+                r.capital_loss,
+                r.hours_per_week,
+                r.workclass_idx,
+                r.education_idx,
+                r.marital_status_idx,
+                r.occupation_idx,
+                r.relationship_idx,
+                r.race_idx,
+                r.sex_idx,
+                r.native_country_idx
+            ))
+            ).toDF().show()
 
     def multiply_dataset(self, multiply):
         appended = self.df

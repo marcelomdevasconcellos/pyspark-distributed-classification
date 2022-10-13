@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from log import log
 from pyspark import StorageLevel
+import pyspark
 from sklearn.impute import SimpleImputer
 from pyspark.sql.functions import lit
 from pyspark.sql.functions import col, sum
@@ -24,6 +25,8 @@ class LocalSparkSession:
 
     def start(self):
         self.spark = SparkSession.builder \
+            .config("spark.sql.debug.maxToStringFields", "-1") \
+            .config("spark.sql.autoBroadcastJoinThreshold", "-1") \
             .master(f"local[{self.num_clusters}]") \
             .appName("8INF919D1") \
             .getOrCreate()

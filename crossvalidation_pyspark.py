@@ -32,21 +32,32 @@ class CrossValidationPySpark:
         self.delta_time = None
         log('MapReduceIDR3 : Starting')
 
+    def assemble_features(self):
+        # self.df = self.dataset.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:])).toDF()
+        # self.map = self.dataset.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
+        columns = [col for col in self.dataset.df.columns if col != 'label']
+        assembler = VectorAssembler(inputCols=columns, outputCol='features')
+        df_assembler = assembler.transform(self.df)
+
     def train(self):
         # https://gist.github.com/colbyford/7758088502211daa90dbc1b51c408762
         time_initial = datetime.now()
+        columns = [col for col in self.dataset.df.columns if col != 'label']
+        assembler = VectorAssembler(inputCols=columns, outputCol='features')
+        df_assembler = assembler.transform(self.dataset.df)
         dt = DecisionTreeClassifier()
-        pipeline = Pipeline(stages=[dt, ])
+        # pipeline = Pipeline(stages=[dt, ])
         param_grid = ParamGridBuilder() \
-            .addGrid(dt.maxDepth, [4, 5, 6]).addGrid(dt.maxBins, [42, ]).build()
+            .addGrid(dt.maxDepth, [10, 20, 30, 40, 50, 60, 70]).build()
+            #.addGrid(dt.maxBins, [32, ]).build()
             # .addGrid(dt.minInstancesPerNode, [1, 2, 3]) \
             # .addGrid(dt.maxBins, [16, 32, 64]) \
             # .build()
-        crossval = CrossValidator(estimator=pipeline,
+        crossval = CrossValidator(estimator=DecisionTreeClassifier(),
                                   estimatorParamMaps=param_grid,
                                   evaluator=BinaryClassificationEvaluator(),
                                   numFolds=2)
-        self.model = crossval.fit(self.dataset.df_assembler)
+        self.model = crossval.fit(df_assembler)
         self.delta_time = datetime.now() - time_initial
 
     def get_metrics(self):

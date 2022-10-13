@@ -28,10 +28,10 @@ class MapReduceIDR3:
         log('MapReduceIDR3 : Starting')
 
     def set_labeled_point(self):
-        self.labeled_point = self.dataset.df.rdd.map(lambda line: LabeledPoint(line[0], [line[1:]]))
+        self.labeled_point = self.dataset.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
 
     def split(self):
-        self.training_data, self.test_data = self.labeled_point.randomSplit([0.7, 0.3])
+        (self.training_data, self.test_data) = self.labeled_point.randomSplit([0.7, 0.3])
 
     def train(self):
         time_initial = datetime.now()
@@ -41,7 +41,8 @@ class MapReduceIDR3:
             categoricalFeaturesInfo={},
             impurity='entropy',
             maxDepth=5,
-            maxBins=42, )
+            maxBins=42,
+        )
         self.delta_time = datetime.now() - time_initial
 
     def predict(self):

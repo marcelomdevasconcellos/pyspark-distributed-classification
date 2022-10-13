@@ -31,13 +31,15 @@ class CrossValidationSkLearn:
     def train(self):
         # https://ai.plainenglish.io/hyperparameter-tuning-of-decision-tree-classifier-using-gridsearchcv-2a6ebcaffeda?gi=eee67beedcab
         time_initial = datetime.now()
-        dt = DecisionTreeClassifier()
+        dt = DecisionTreeClassifier(criterion='entropy')
         pipe = Pipeline(
             steps=[('dt', dt), ])
-        parameters = dict(dt__max_depth=[4, 5, 6],
-                          #dt__min_samples_split=[1, 2, 3],
-                          #dt__max_features=[16, 32, 64]
-                          )
+        parameters = dict(
+            #df__criterion=['entropy', ],
+            dt__max_depth=[10, 20, 30, 40, 50, 60, 70],
+            #dt__min_samples_split=[1, 2, 3],
+            #dt__max_features=[16, 32, 64]
+        )
         self.model = GridSearchCV(pipe, parameters)
         self.model.fit(self.X, self.y)
         self.delta_time = datetime.now() - time_initial
