@@ -7,3 +7,4 @@ scipy==1.9.1
 plotly
 findspark
 pyspark
+jupyter
