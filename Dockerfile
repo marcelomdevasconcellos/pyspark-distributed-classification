@@ -31,4 +31,4 @@ RUN python3 -m pip install jupyter
 CMD ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0",  "--no-browser"]
 
 # docker build -t "pyspark:Dockerfile" .
-# docker run -d -p 8888:8888 -i 0.0.0.0 --memory=4096 --cpus=4 "pyspark:Dockerfile"
+# docker run -d -p 8888:8888 -m 4GB --cpus=4 "pyspark:Dockerfile"
