@@ -24,7 +24,7 @@ class LocalSparkSession:
         self.sc = None
 
     def start(self):
-        log(f'LocalSparkSession : Starting {self.num_clusters}')
+        log(f'LocalSparkSession : Starting with {self.num_clusters} clusters')
         self.spark = SparkSession.builder \
             .master(f"local[{self.num_clusters}]") \
             .appName("8INF919D1") \
