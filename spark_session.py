@@ -24,6 +24,7 @@ class LocalSparkSession:
         self.sc = None
 
     def start(self):
+        log(f'LocalSparkSession : Starting {self.num_clusters}')
         self.spark = SparkSession.builder \
             .master(f"local[{self.num_clusters}]") \
             .appName("8INF919D1") \
@@ -36,4 +37,5 @@ class LocalSparkSession:
         rdd1.persist(StorageLevel.MEMORY_AND_DISK_2)
 
     def stop(self):
+        log(f'LocalSparkSession : Stopping')
         self.sc.stop()

@@ -9,6 +9,7 @@ RUN apt -y upgrade
 RUN apt -y full-upgrade
 
 RUN apt install curl mlocate wget default-jdk -y
+RUN apt install git -y
 
 RUN wget https://dlcdn.apache.org/spark/spark-3.3.0/spark-3.3.0-bin-hadoop3.tgz
 
