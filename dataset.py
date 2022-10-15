@@ -147,7 +147,7 @@ class Dataset:
             ).toDF().show()
 
     def multiply_dataset(self, multiply):
-        log(f'Dataset : Multiplying Dataset by {multiply}')
+        log(f'Dataset : Multiplying Dataset by {multiply}x')
         appended = self.df
         for _ in list(range(multiply)):
             appended = appended.union(self.df)
