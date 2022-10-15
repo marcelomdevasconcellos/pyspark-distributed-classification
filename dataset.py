@@ -73,7 +73,7 @@ class Dataset:
                     INT(capital_loss) AS capital_loss,
                     INT(hours_per_week) AS hours_per_week,
                     TRIM(native_country) AS native_country
-            FROM Adults""")
+            FROM Adults ORDER BY RAND() LIMIT 400""")
 
     def one_hot_encode(self, column_name):
         distinct_values = self.df.select(column_name) \
