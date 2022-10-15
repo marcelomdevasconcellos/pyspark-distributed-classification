@@ -20,10 +20,5 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 def log(message):
-    #logger.info(message)
-    pass
-    # if isinstance(message, list):
-    #     message.insert(0, '')
-    # if isinstance(message, str) and len(message.split('\n')) > 1:
-    #     message = '\n' + message
-    # print(f'{datetime.now()} [INFO] {message}')
+    logger.info(message)
+

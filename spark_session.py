@@ -25,11 +25,12 @@ class LocalSparkSession:
 
     def start(self):
         self.spark = SparkSession.builder \
-            .config("spark.sql.debug.maxToStringFields", "-1") \
-            .config("spark.sql.autoBroadcastJoinThreshold", "-1") \
             .master(f"local[{self.num_clusters}]") \
             .appName("8INF919D1") \
             .getOrCreate()
+            # .config("spark.sql.debug.maxToStringFields", "-1") \
+            # .config("spark.sql.autoBroadcastJoinThreshold", "-1") \
+        self.spark.sparkContext.setLogLevel("OFF")
         self.sc = self.spark.sparkContext.getOrCreate()
         rdd1 = self.sc.parallelize([1, 2])
         rdd1.persist(StorageLevel.MEMORY_AND_DISK_2)

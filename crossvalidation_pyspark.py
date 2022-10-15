@@ -30,40 +30,36 @@ class CrossValidationPySpark:
         self.model = None
         self.errors = None
         self.delta_time = None
-        log('MapReduceIDR3 : Starting')
+        log(f'CrossValidationPySpark : Starting')
 
     def assemble_features(self):
+        log(f'CrossValidationPySpark : Assembling')
         # self.df = self.dataset.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:])).toDF()
         # self.map = self.dataset.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
         columns = [col for col in self.dataset.df.columns if col != 'label']
         assembler = VectorAssembler(inputCols=columns, outputCol='features')
         df_assembler = assembler.transform(self.df)
 
-    def train(self):
-        # https://gist.github.com/colbyford/7758088502211daa90dbc1b51c408762
+    def train(self, parameters=False):
+        log(f'CrossValidationPySpark : Training')
         time_initial = datetime.now()
         columns = [col for col in self.dataset.df.columns if col != 'label']
         assembler = VectorAssembler(inputCols=columns, outputCol='features')
         df_assembler = assembler.transform(self.dataset.df)
         dt = DecisionTreeClassifier()
-        # pipeline = Pipeline(stages=[dt, ])
-        param_grid = ParamGridBuilder() \
-            .addGrid(dt.maxDepth, [10, 20, 30, 40, 50, 60, 70]).build()
-            #.addGrid(dt.maxBins, [32, ]).build()
-            # .addGrid(dt.minInstancesPerNode, [1, 2, 3]) \
-            # .addGrid(dt.maxBins, [16, 32, 64]) \
-            # .build()
+        if not parameters:
+            parameters = ParamGridBuilder() \
+                .addGrid(dt.maxDepth, [10, 20, 30, 40, 50, 60, 70]).build()
         crossval = CrossValidator(estimator=DecisionTreeClassifier(),
-                                  estimatorParamMaps=param_grid,
+                                  estimatorParamMaps=parameters,
                                   evaluator=BinaryClassificationEvaluator(),
                                   numFolds=2)
         self.model = crossval.fit(df_assembler)
         self.delta_time = datetime.now() - time_initial
+        log(f'CrossValidationPySpark : Training time {self.delta_time.total_seconds()} seconds')
 
     def get_metrics(self):
+        log(f'CrossValidationPySpark : Get metrics')
         return {
             'time': self.delta_time.total_seconds(),
-            # 'errors': self.errors,
-            # 'area_under_pr': self.area_under_pr,
-            # 'area_under_roc': self.area_under_roc,
         }

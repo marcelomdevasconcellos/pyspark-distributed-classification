@@ -30,5 +30,7 @@ RUN python3 -m pip install jupyter
 
 CMD ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0",  "--no-browser"]
 
-# docker build -t "pyspark:Dockerfile" .
-# docker run -d -p 8888:8888 -m 4GB --cpus=4 "pyspark:Dockerfile"
+# docker build -t "docker push marcelovasconcellos/pyspark-distributed-classification:latest:latest" .
+# docker tag pyspark-distributed-classification:latest marcelovasconcellos/pyspark-distributed-classification:latest
+# docker push marcelovasconcellos/pyspark-distributed-classification:latest
+# docker run -d -p 8888:8888 -m 1GB --cpus=4 "pyspark:Dockerfile"

@@ -1,10 +1,7 @@
 import matplotlib
 import numpy as np
 import pandas as pd
-
-matplotlib.use('Agg')
 import seaborn as sns
-sns.set()
 from log import log
 from sklearn.impute import SimpleImputer
 from pyspark.sql.functions import lit
@@ -91,11 +88,12 @@ class Dataset:
         return self.df.drop(column_name)
 
     def one_hot_encode_categorical_fields(self):
+        log(f'Dataset : One Hot Encode Categorical Fields')
         for column_name in self.categorical_fields:
             self.df = self.one_hot_encode(column_name)
 
     def string_indexer(self):
-
+        log(f'Dataset : String Indexer')
         columns = self.num_fields
         for column_name in self.categorical_fields:
             columns.append(column_name+'_idx')
@@ -105,6 +103,7 @@ class Dataset:
         self.df = self.df.select(['label', ] + [col(c).cast(IntegerType()) for c in columns])
 
     def assemble_features(self):
+        log(f'Dataset : Assemble Features')
         # columns = self.num_fields
         # for column_name in self.categorical_fields:
         #     columns.append(column_name + '_idx')
@@ -148,7 +147,8 @@ class Dataset:
             ).toDF().show()
 
     def multiply_dataset(self, multiply):
+        log(f'Dataset : Multiplying Dataset by {multiply}')
         appended = self.df
         for _ in list(range(multiply)):
-            appended = appended.union(appended)
+            appended = appended.union(self.df)
         self.df = appended

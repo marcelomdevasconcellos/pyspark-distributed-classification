@@ -28,12 +28,15 @@ class MapReduceIDR3:
         log('MapReduceIDR3 : Starting')
 
     def set_labeled_point(self):
+        log(f'MapReduceIDR3 : Setting Labeled Point')
         self.labeled_point = self.dataset.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
 
     def split(self):
-        (self.training_data, self.test_data) = self.labeled_point.randomSplit([0.7, 0.3])
+        log(f'MapReduceIDR3 : Splitting')
+        (self.training_data, self.test_data) = self.labeled_point.randomSplit([0.5, 0.5])
 
     def train(self):
+        log(f'MapReduceIDR3 : Training')
         time_initial = datetime.now()
         self.model = DecisionTree.trainClassifier(
             self.training_data,
@@ -44,8 +47,10 @@ class MapReduceIDR3:
             maxBins=42,
         )
         self.delta_time = datetime.now() - time_initial
+        log(f'MapReduceIDR3 : Training time {self.delta_time.total_seconds()} seconds')
 
     def predict(self):
+        log(f'MapReduceIDR3 : Predicting')
         self.predictions = self.model.predict(
             self.test_data.map(lambda x: x.features))
         labels_and_predictions = self.test_data.map(
@@ -57,6 +62,7 @@ class MapReduceIDR3:
         self.area_under_roc = self.metrics.areaUnderROC
 
     def get_metrics(self):
+        log(f'MapReduceIDR3 : Get metrics')
         return {
             'time': self.delta_time.total_seconds(),
             'errors': self.errors,
