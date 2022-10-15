@@ -21,14 +21,10 @@ class CrossValidationSkLearn:
         self.y = None
         log('CrossValidationSkLearn : Starting')
 
-    def split(self):
-        log(f'CrossValidationSkLearn : Splitting')
-        self.training_data, self.test_data = self.labeled_point.randomSplit([0.7, 0.3])
-
     def set_x_y(self):
         log(f'CrossValidationSkLearn : Setting X and y')
-        self.X = self.df.toPandas().drop(columns=['label', ])
-        self.y = self.df.toPandas()['label']
+        self.X = self.df.drop(columns=['label', ])
+        self.y = self.df['label']
 
     def train(self, parameters=False):
         log(f'CrossValidationSkLearn : Training')
