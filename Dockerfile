@@ -27,7 +27,9 @@ RUN apt-get install -y python3-pip python3-dev
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install setuptools==57.4.0
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
-RUN python3 -m pip install jupyter
+
+EXPOSE 8888
+EXPOSE 4000
 
 CMD ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0",  "--no-browser"]
 
