@@ -20,9 +20,8 @@ from pyspark.sql.types import StructType, StructField, IntegerType, StringType, 
 
 
 class CrossValidationPySpark:
-    def __init__(self, dataset):
-        self.dataset = dataset
-        self.df = None
+    def __init__(self, df):
+        self.df = df
         self.labeled_point = None
         self.training_data = None
         self.test_data = None
@@ -34,18 +33,18 @@ class CrossValidationPySpark:
 
     def assemble_features(self):
         log(f'CrossValidationPySpark : Assembling')
-        # self.df = self.dataset.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:])).toDF()
-        # self.map = self.dataset.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
-        columns = [col for col in self.dataset.df.columns if col != 'label']
+        # self.df = self.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:])).toDF()
+        # self.map = self.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
+        columns = [col for col in self.df.columns if col != 'label']
         assembler = VectorAssembler(inputCols=columns, outputCol='features')
         df_assembler = assembler.transform(self.df)
 
     def train(self, parameters=False):
         log(f'CrossValidationPySpark : Training')
         time_initial = datetime.now()
-        columns = [col for col in self.dataset.df.columns if col != 'label']
+        columns = [col for col in self.df.columns if col != 'label']
         assembler = VectorAssembler(inputCols=columns, outputCol='features')
-        df_assembler = assembler.transform(self.dataset.df)
+        df_assembler = assembler.transform(self.df)
         dt = DecisionTreeClassifier()
         if not parameters:
             parameters = ParamGridBuilder() \

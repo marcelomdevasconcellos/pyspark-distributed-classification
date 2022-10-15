@@ -9,8 +9,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
 
 class CrossValidationSkLearn:
-    def __init__(self, dataset):
-        self.dataset = dataset
+    def __init__(self, df):
+        self.df = df
         self.training_data = None
         self.test_data = None
         self.predictions = None
@@ -27,8 +27,8 @@ class CrossValidationSkLearn:
 
     def set_x_y(self):
         log(f'CrossValidationSkLearn : Setting X and y')
-        self.X = self.dataset.df.toPandas().drop(columns=['label', ])
-        self.y = self.dataset.df.toPandas()['label']
+        self.X = self.df.toPandas().drop(columns=['label', ])
+        self.y = self.df.toPandas()['label']
 
     def train(self, parameters=False):
         log(f'CrossValidationPySpark : Training')

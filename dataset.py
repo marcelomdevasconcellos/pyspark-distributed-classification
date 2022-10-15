@@ -151,4 +151,4 @@ class Dataset:
         appended = self.df
         for _ in list(range(multiply)):
             appended = appended.union(self.df)
-        self.df = appended
+        return appended

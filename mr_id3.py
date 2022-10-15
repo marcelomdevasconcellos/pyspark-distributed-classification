@@ -16,8 +16,8 @@ from pyspark.sql.types import StructType, StructField, IntegerType, StringType, 
 
 
 class MapReduceIDR3:
-    def __init__(self, dataset):
-        self.dataset = dataset
+    def __init__(self, df):
+        self.df = df
         self.labeled_point = None
         self.training_data = None
         self.test_data = None
@@ -29,7 +29,7 @@ class MapReduceIDR3:
 
     def set_labeled_point(self):
         log(f'MapReduceIDR3 : Setting Labeled Point')
-        self.labeled_point = self.dataset.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
+        self.labeled_point = self.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
 
     def split(self):
         log(f'MapReduceIDR3 : Splitting')
