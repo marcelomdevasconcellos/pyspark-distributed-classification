@@ -52,7 +52,7 @@ class CrossValidationSkLearn:
         log(f'CrossValidationPySpark : Getting metrics')
         return {
             'time': self.delta_time.total_seconds(),
-            'best_estimator': self.model.best_estimator_,
-            'best_score': self.model.best_score_,
-            'best_params': self.model.best_params_,
+            # 'best_estimator': self.model.best_estimator_,
+            # 'best_score': self.model.best_score_,
+            # 'best_params': self.model.best_params_,
         }
