@@ -19,7 +19,7 @@ class CrossValidationSkLearn:
         self.delta_time = None
         self.X = None
         self.y = None
-        log('MapReduceIDR3 : Starting')
+        log('CrossValidationSkLearn : Starting')
 
     def split(self):
         log(f'CrossValidationSkLearn : Splitting')
@@ -31,8 +31,7 @@ class CrossValidationSkLearn:
         self.y = self.df.toPandas()['label']
 
     def train(self, parameters=False):
-        log(f'CrossValidationPySpark : Training')
-        time_initial = datetime.now()
+        log(f'CrossValidationSkLearn : Training')
         dt = DecisionTreeClassifier(criterion='entropy')
         pipe = Pipeline(
             steps=[('dt', dt), ])
@@ -43,16 +42,17 @@ class CrossValidationSkLearn:
                 #dt__min_samples_split=[1, 2, 3],
                 #dt__max_features=[16, 32, 64]
             )
+        time_initial = datetime.now()
         self.model = GridSearchCV(pipe, parameters)
         self.model.fit(self.X, self.y)
         self.delta_time = datetime.now() - time_initial
-        log(f'CrossValidationPySpark : Training time {self.delta_time.total_seconds()} seconds')
+        log(f'CrossValidationSkLearn : Training time {self.delta_time.total_seconds()} seconds')
 
     def get_metrics(self):
-        log(f'CrossValidationPySpark : Getting metrics')
+        log(f'CrossValidationSkLearn : Getting metrics')
         return {
             'time': self.delta_time.total_seconds(),
-            'best_estimator': self.model.best_estimator_,
-            'best_score': self.model.best_score_,
-            'best_params': self.model.best_params_,
+            # 'best_estimator': self.model.best_estimator_,
+            # 'best_score': self.model.best_score_,
+            # 'best_params': self.model.best_params_,
         }

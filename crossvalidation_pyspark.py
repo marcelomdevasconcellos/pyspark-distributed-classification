@@ -41,7 +41,6 @@ class CrossValidationPySpark:
 
     def train(self, parameters=False):
         log(f'CrossValidationPySpark : Training')
-        time_initial = datetime.now()
         columns = [col for col in self.df.columns if col != 'label']
         assembler = VectorAssembler(inputCols=columns, outputCol='features')
         df_assembler = assembler.transform(self.df)
@@ -49,6 +48,7 @@ class CrossValidationPySpark:
         if not parameters:
             parameters = ParamGridBuilder() \
                 .addGrid(dt.maxDepth, [10, 20, 30, 40, 50, 60, 70]).build()
+        time_initial = datetime.now()
         crossval = CrossValidator(estimator=DecisionTreeClassifier(),
                                   estimatorParamMaps=parameters,
                                   evaluator=BinaryClassificationEvaluator(),
