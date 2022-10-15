@@ -1,4 +1,6 @@
-# 8INF919_Devoir1_Classification-distribuee-par-arbre-de-decision
+# 8INF919 Devoir1 - Classification distribuée par arbre de decision
+
+
 8INF919_Devoir1_Classification-distribuee-par-arbre-de-decision
 
 ```

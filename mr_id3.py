@@ -65,7 +65,7 @@ class MapReduceIDR3:
         log(f'MapReduceIDR3 : Get metrics')
         return {
             'time': self.delta_time.total_seconds(),
-            'errors': self.errors,
-            'area_under_pr': self.area_under_pr,
-            'area_under_roc': self.area_under_roc,
+            # 'errors': self.errors,
+            # 'area_under_pr': self.area_under_pr,
+            # 'area_under_roc': self.area_under_roc,
         }
