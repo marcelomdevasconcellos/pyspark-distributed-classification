@@ -70,7 +70,7 @@ class DecisionTreeSklearn:
         time_initial = datetime.now()
         self.predictions = self.model.predict(self.X_test)
         self.predict_time = datetime.now() - time_initial
-        log(f'DecisionTreePySpark : Predict time {self.predict_time.total_seconds()} seconds')
+        log(f'DecisionTreeSklearn : Predict time {self.predict_time.total_seconds()} seconds')
 
     def get_metrics(self):
         log(f'DecisionTreeSklearn : Getting metrics')
