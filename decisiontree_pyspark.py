@@ -36,8 +36,8 @@ class DecisionTreePySpark:
         self.predictions = None
         self.model = None
         self.errors = None
-        self.train_time = None
-        self.predict_time = None
+        self.train_time = 0
+        self.predict_time = 0
         self.df_assembler = None
         log(f'DecisionTreePySpark : Starting')
 
@@ -106,7 +106,7 @@ class DecisionTreePySpark:
     def get_metrics(self):
         log(f'DecisionTreePySpark : Get metrics')
         return {
-            'train_time': self.train_time.total_seconds(),
-            'predict_time': self.predict_time.total_seconds(),
-            'time': self.train_time.total_seconds() + self.predict_time.total_seconds(),
+            'train_time': self.train_time or self.train_time.total_seconds(),
+            'predict_time': self.train_time or self.predict_time.total_seconds(),
+            'time': (self.train_time or self.train_time.total_seconds()) + (self.train_time or self.predict_time.total_seconds()),
         }
