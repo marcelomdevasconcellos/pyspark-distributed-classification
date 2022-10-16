@@ -21,7 +21,12 @@ sudo apt install -y software-properties-common
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt install -y python3.9
 sudo apt-get install -y python3-pip python3-dev
+sudo apt install python3.8-venv
+sudo python3 -m pip install --upgrade pip
+python3 -m venv venv
+source venv/bin/activate
+pip install setuptools
+pip install wheel
+pip install --no-cache-dir -r requirements.txt
 
-python3 -m pip install --upgrade pip
-python3 -m pip install setuptools==57.4.0
-python3 -m pip install --no-cache-dir -r requirements.txt
+sudo snap install jupyter
