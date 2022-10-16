@@ -51,9 +51,9 @@ for f in multiplication_factors:
     mr_id3.train()
 
     metric = mr_id3.get_metrics()
-    metric['length_rows'] = df.count()
+    metric['dataset_rows'] = df.count()
     metric['dataset_size_num'] = f
-    metric['dataset_size'] = sys.getsizeof(df)
+    metric['dataset_size'] = sys.getsizeof(dataset.df_pandas)
     metric['number_of_cores'] = number_of_core
     metrics.append(metric)
 

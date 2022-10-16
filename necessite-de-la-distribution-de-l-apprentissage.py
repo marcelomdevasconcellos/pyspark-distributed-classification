@@ -68,11 +68,12 @@ for number_of_cores in numbers_of_cores:
     mr_id3.train()
 
     metric = mr_id3.get_metrics()
-    metric['length_rows'] = df.count()
-    metric['dataset_size'] = multiplication_factor
+    metric['dataset_rows'] = df.count()
+    metric['dataset_size_num'] = multiplication_factor
+    metric['dataset_size'] = sys.getsizeof(dataset.df_pandas)
     metric['number_of_cores'] = number_of_cores
     metrics.append(metric)
-    log(f"Metrics: Clusters {metric['number_of_cores']} - Dataset size {metric['dataset_size']}x - Time {metric['time']} seconds")
+    log(f"Metrics: Clusters {metric['number_of_cores']} - Dataset size {metric['dataset_size_num']}x - Time {metric['time']} seconds")
 
     spark.stop()
 
