@@ -73,6 +73,10 @@ for f in multiplication_factors:
 
     metrics.append(metric_dict)
 
+    now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
+    df = pd.DataFrame.from_dict(metrics)
+    df.to_csv(f'results/{ENVIRONMENT}_COMPARE{f}_{number_of_core}_{now}.csv')
+
 spark.stop()
 
 now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
