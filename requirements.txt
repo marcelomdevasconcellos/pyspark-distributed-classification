@@ -8,3 +8,4 @@ plotly
 findspark
 pyspark
 jupyter
+django-environ==0.9.0

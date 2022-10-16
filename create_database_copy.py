@@ -1,9 +1,19 @@
+import environ
 from dataset import Dataset
 from spark_session import LocalSparkSession
 
-number_of_cores = 4
+env = environ.Env()
+environ.Env.read_env()
+
+NUMBER_OF_CORES = env('NUMBER_OF_CORES', default='4')
+MULTIPLICATION_FACTORS = env('NUMBER_OF_CORES', default='1,10,20,30,40,50,60,70,80,90,100')
+
+numbers_of_cores = [int(n) for n in NUMBER_OF_CORES.split(',')]
+multiplication_factors = [int(n) for n in MULTIPLICATION_FACTORS.split(',')]
+
 filename = 'dataset/adult.data'
-multiplication_factors = [1000, ]
+
+metrics = []
 
 target = 'label'
 num_fields = [
@@ -15,7 +25,7 @@ categorical_fields = [
     'marital_status', 'occupation', 'relationship',
     'race', 'sex', 'native_country', ]
 
-spark = LocalSparkSession(number_of_cores)
+spark = LocalSparkSession(max(numbers_of_cores))
 spark.start()
 
 dataset = Dataset(spark.spark, filename, num_fields, categorical_fields, target)
