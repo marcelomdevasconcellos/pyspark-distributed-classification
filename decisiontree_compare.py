@@ -54,15 +54,21 @@ for f in multiplication_factors:
     # PySpark
     dt_pyspark = DecisionTreePySpark(df)
     dt_pyspark.train()
+    dt_pyspark.predict()
     m = dt_pyspark.get_metrics()
-    metric_dict['pyspark'] = m['time']
+    metric_dict['pyspark_time'] = m['time']
+    metric_dict['pyspark_train_time'] = m['train_time']
+    metric_dict['pyspark_predict_time'] = m['predict_time']
     dt_pyspark = None
 
     # SKLearn
     dt_sklearn = DecisionTreeSklearn(df_pandas)
     dt_sklearn.train()
+    dt_sklearn.predict()
     m = dt_sklearn.get_metrics()
-    metric_dict['sklearn'] = m['time']
+    metric_dict['sklearn_time'] = m['time']
+    metric_dict['sklearn_train_time'] = m['train_time']
+    metric_dict['sklearn_predict_time'] = m['predict_time']
     dt_sklearn = None
 
     metrics.append(metric_dict)

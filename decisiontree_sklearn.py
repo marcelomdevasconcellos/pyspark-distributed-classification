@@ -17,7 +17,7 @@ class DecisionTreeSklearn:
         self.predictions = None
         self.model = None
         self.errors = None
-        self.delta_time = None
+        self.train_time = None
         self.X = None
         self.y = None
         self.X_train = None
@@ -51,10 +51,10 @@ class DecisionTreeSklearn:
         time_initial = datetime.now()
         self.model = GridSearchCV(pipe, parameters)
         self.model.fit(self.X_train, self.y_train)
-        self.delta_time = datetime.now() - time_initial
-        log(f'DecisionTreeSklearn : Cross Validation Training time {self.delta_time.total_seconds()} seconds')
+        self.train_time = datetime.now() - time_initial
+        log(f'DecisionTreeSklearn : Cross Validation Training time {self.train_time.total_seconds()} seconds')
 
-    def train(self, parameters={'criterion': 'entropy', 'max_depth': 10}):
+    def train(self, parameters={'criterion': 'entropy', 'max_depth': 5}):
         log(f'DecisionTreeSklearn : Training')
         # https://scikit-learn.org/stable/modules/tree.html
         self.__set_x_y()
@@ -62,13 +62,22 @@ class DecisionTreeSklearn:
         time_initial = datetime.now()
         clf = DecisionTreeClassifier(**parameters)
         self.model = clf.fit(self.X_train, self.y_train)
-        self.delta_time = datetime.now() - time_initial
-        log(f'DecisionTreeSklearn : Training time {self.delta_time.total_seconds()} seconds')
+        self.train_time = datetime.now() - time_initial
+        log(f'DecisionTreeSklearn : Train time {self.train_time.total_seconds()} seconds')
+
+    def predict(self):
+        log(f'DecisionTreeSklearn : Predicting')
+        time_initial = datetime.now()
+        self.predictions = self.model.predict(self.X_test)
+        self.predict_time = datetime.now() - time_initial
+        log(f'DecisionTreePySpark : Predict time {self.predict_time.total_seconds()} seconds')
 
     def get_metrics(self):
         log(f'DecisionTreeSklearn : Getting metrics')
         return {
-            'time': self.delta_time.total_seconds(),
+            'train_time': self.train_time.total_seconds(),
+            'predict_time': self.predict_time.total_seconds(),
+            'time': self.train_time.total_seconds() + self.predict_time.total_seconds(),
             # 'best_estimator': self.model.best_estimator_,
             # 'best_score': self.model.best_score_,
             # 'best_params': self.model.best_params_,

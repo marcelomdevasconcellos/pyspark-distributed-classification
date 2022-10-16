@@ -36,7 +36,8 @@ class DecisionTreePySpark:
         self.predictions = None
         self.model = None
         self.errors = None
-        self.delta_time = None
+        self.train_time = None
+        self.predict_time = None
         self.df_assembler = None
         log(f'DecisionTreePySpark : Starting')
 
@@ -71,8 +72,8 @@ class DecisionTreePySpark:
                                   evaluator=BinaryClassificationEvaluator(),
                                   numFolds=2)
         self.model = crossval.fit(self.training_data)
-        self.delta_time = datetime.now() - time_initial
-        log(f'DecisionTreePySpark : Cross Validation Training time {self.delta_time.total_seconds()} seconds')
+        self.train_time = datetime.now() - time_initial
+        log(f'DecisionTreePySpark : Cross Validation Training time {self.train_time.total_seconds()} seconds')
 
     def train(self, parameters=DEFAULT_PARAMETERS):
         log(f'DecisionTreePySpark : Training')
@@ -84,11 +85,28 @@ class DecisionTreePySpark:
             self.training_data,
             **parameters
         )
-        self.delta_time = datetime.now() - time_initial
-        log(f'DecisionTreePySpark : Training time {self.delta_time.total_seconds()} seconds')
+        self.train_time = datetime.now() - time_initial
+        log(f'DecisionTreePySpark : Train time {self.train_time.total_seconds()} seconds')
+
+    def predict(self):
+        log(f'DecisionTreePySpark : Predicting')
+        time_initial = datetime.now()
+        self.predictions = self.model.predict(
+            self.test_data.map(lambda x: x.features))
+        self.predict_time = datetime.now() - time_initial
+        log(f'DecisionTreePySpark : Predict time {self.predict_time.total_seconds()} seconds')
+        # labels_and_predictions = self.test_data.map(
+        #     lambda lp: lp.label).zip(self.predictions)
+        # self.errors = labels_and_predictions.filter(
+        #     lambda lp: lp[0] != lp[1]).count() / float(self.test_data.count())
+        # self.metrics = BinaryClassificationMetrics(labels_and_predictions)
+        # self.area_under_pr = self.metrics.areaUnderPR
+        # self.area_under_roc = self.metrics.areaUnderROC
 
     def get_metrics(self):
         log(f'DecisionTreePySpark : Get metrics')
         return {
-            'time': self.delta_time.total_seconds(),
+            'train_time': self.train_time.total_seconds(),
+            'predict_time': self.predict_time.total_seconds(),
+            'time': self.train_time.total_seconds() + self.predict_time.total_seconds(),
         }
