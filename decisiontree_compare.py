@@ -1,5 +1,7 @@
+import datetime
 import sys
 
+import environ
 import pandas as pd
 
 from dataset import Dataset
@@ -17,23 +19,30 @@ categorical_fields = [
     'race', 'sex', 'native_country', ]
 
 target = 'label'
-filename = 'dataset/adult.data'
-number_of_cores = 8
-multiplication_factors = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
-spark = LocalSparkSession(number_of_cores)
+env = environ.Env()
+environ.Env.read_env()
+
+ENVIRONMENT = env('ENVIRONMENT', default='LOCAL')
+NUMBER_OF_CORES = env('NUMBER_OF_CORES', default='1,2,3,4')
+MULTIPLICATION_FACTORS = env('NUMBER_OF_CORES', default='1,10,20,30,40,50,60,70,80,90,100')
+
+numbers_of_cores = [int(n) for n in NUMBER_OF_CORES.split(',')]
+number_of_core = max(numbers_of_cores)
+
+multiplication_factors = [int(n) for n in MULTIPLICATION_FACTORS.split(',')]
+multiplication_factor = max(multiplication_factors)
+
+spark = LocalSparkSession(number_of_core)
 spark.start()
-columns = [
-    'age', 'workclass', 'fnlwgt', 'education', 'education_num', 'marital_status',
-    'occupation', 'relationship', 'race',
-    'sex', 'capital_gain', 'capital_loss', 'hours_per_week', 'native_country','label', ]
 
 metrics = []
 
-
 for f in multiplication_factors:
-
-    dataset = Dataset(spark.spark, f'dataset/adult_{f}x.data', num_fields, categorical_fields, target)
+    dataset = Dataset(
+        spark.spark,
+        f'dataset/adult_{f}x.data',
+        num_fields, categorical_fields, target)
     dataset.load()
     dataset.select_only_numerical_features()
 
@@ -58,13 +67,8 @@ for f in multiplication_factors:
 
     metrics.append(metric_dict)
 
-    print(f'dataset/adult_{f}x.data OK!')
+spark.stop()
 
-
-
+now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
 df = pd.DataFrame.from_dict(metrics)
-df.to_csv('results/decisiontree_compare.csv')
-print(df)
-
-
-
+df.to_csv(f'results/{ENVIRONMENT}_COMPARE_{number_of_core}_{now}.csv')

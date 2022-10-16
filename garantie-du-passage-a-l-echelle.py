@@ -18,7 +18,6 @@ categorical_fields = [
     'race', 'sex', 'native_country', ]
 
 target = 'label'
-filename = 'dataset/adult.data'
 
 env = environ.Env()
 environ.Env.read_env()
