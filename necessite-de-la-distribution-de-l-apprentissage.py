@@ -41,7 +41,7 @@ environ.Env.read_env()
 
 ENVIRONMENT = env('ENVIRONMENT', default='LOCAL')
 NUMBER_OF_CORES = env('NUMBER_OF_CORES', default='1,2,3,4')
-MULTIPLICATION_FACTORS = env('NUMBER_OF_CORES', default='1,10,20,30,40,50,60,70,80,90,100')
+MULTIPLICATION_FACTORS = env('MULTIPLICATION_FACTORS', default='1,10,20,30,40,50,60,70,80,90,100')
 
 numbers_of_cores = [int(n) for n in NUMBER_OF_CORES.split(',')]
 number_of_core = max(numbers_of_cores)
