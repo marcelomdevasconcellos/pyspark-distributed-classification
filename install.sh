@@ -30,3 +30,5 @@ pip install wheel
 pip install --no-cache-dir -r requirements.txt
 
 sudo snap install jupyter
+
+cp env_cloud .env

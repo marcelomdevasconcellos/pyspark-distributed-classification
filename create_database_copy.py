@@ -5,7 +5,7 @@ from spark_session import LocalSparkSession
 env = environ.Env()
 environ.Env.read_env()
 
-NUMBER_OF_CORES = env('NUMBER_OF_CORES', default='4')
+NUMBER_OF_CORES = env('NUMBER_OF_CORES', default='1,2,3,4')
 MULTIPLICATION_FACTORS = env('NUMBER_OF_CORES', default='1,10,20,30,40,50,60,70,80,90,100')
 
 numbers_of_cores = [int(n) for n in NUMBER_OF_CORES.split(',')]
