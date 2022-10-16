@@ -18,8 +18,16 @@ from pyspark.ml import Pipeline
 from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType, LongType
 
+DEFAULT_PARAMETERS = {
+    'numClasses': 2,
+    'categoricalFeaturesInfo': {},
+    'impurity': 'entropy',
+    'maxDepth': 5,
+    'maxBins': 42,
+}
 
-class CrossValidationPySpark:
+
+class DecisionTreePySpark:
     def __init__(self, df):
         self.df = df
         self.labeled_point = None
@@ -29,36 +37,58 @@ class CrossValidationPySpark:
         self.model = None
         self.errors = None
         self.delta_time = None
-        log(f'CrossValidationPySpark : Starting')
+        self.df_assembler = None
+        log(f'DecisionTreePySpark : Starting')
 
-    def assemble_features(self):
-        log(f'CrossValidationPySpark : Assembling')
+    def __set_labeled_point(self):
+        log(f'DecisionTreePySpark : Setting Labeled Point')
+        self.labeled_point = self.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
+
+    def __split(self):
+        log(f'DecisionTreePySpark : Splitting')
+        (self.training_data, self.test_data) = self.labeled_point.randomSplit([0.5, 0.5])
+
+    def __assemble_features(self):
+        log(f'DecisionTreePySpark : Assembling')
         # self.df = self.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:])).toDF()
         # self.map = self.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
         columns = [col for col in self.df.columns if col != 'label']
         assembler = VectorAssembler(inputCols=columns, outputCol='features')
-        df_assembler = assembler.transform(self.df)
+        self.df_assembler = assembler.transform(self.df)
 
-    def train(self, parameters=False):
-        log(f'CrossValidationPySpark : Training')
-        columns = [col for col in self.df.columns if col != 'label']
-        assembler = VectorAssembler(inputCols=columns, outputCol='features')
-        df_assembler = assembler.transform(self.df)
-        dt = DecisionTreeClassifier()
+    def crossvalidation_train(self, parameters=False):
+        log(f'DecisionTreePySpark : Cross Validation Training')
+        self.__set_labeled_point()
+        self.__split()
+        self.__assemble_features()
+        dt = DecisionTree()
         if not parameters:
             parameters = ParamGridBuilder() \
-                .addGrid(dt.maxDepth, [10, 20, 30, 40, 50, 60, 70]).build()
+                .addGrid(dt.trainClassifier.maxDepth, [10, 20, 30, 40, 50, 60, 70]).build()
         time_initial = datetime.now()
-        crossval = CrossValidator(estimator=DecisionTreeClassifier(),
+        crossval = CrossValidator(estimator=DecisionTree.trainClassifier(),
                                   estimatorParamMaps=parameters,
                                   evaluator=BinaryClassificationEvaluator(),
                                   numFolds=2)
-        self.model = crossval.fit(df_assembler)
+        self.model = crossval.fit(self.training_data)
         self.delta_time = datetime.now() - time_initial
-        log(f'CrossValidationPySpark : Training time {self.delta_time.total_seconds()} seconds')
+        log(f'DecisionTreePySpark : Cross Validation Training time {self.delta_time.total_seconds()} seconds')
+
+    def train(self, parameters=DEFAULT_PARAMETERS):
+        log(f'DecisionTreePySpark : Training')
+        self.__set_labeled_point()
+        self.__split()
+        self.__assemble_features()
+        time_initial = datetime.now()
+        self.model = DecisionTree.trainClassifier(
+            self.training_data,
+            **parameters
+        )
+        self.delta_time = datetime.now() - time_initial
+        log(f'DecisionTreePySpark : Training time {self.delta_time.total_seconds()} seconds')
 
     def get_metrics(self):
-        log(f'CrossValidationPySpark : Get metrics')
+        log(f'DecisionTreePySpark : Get metrics')
         return {
             'time': self.delta_time.total_seconds(),
         }

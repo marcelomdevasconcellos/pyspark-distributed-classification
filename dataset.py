@@ -88,9 +88,13 @@ class Dataset:
         return self.df.drop(column_name)
 
     def one_hot_encode_categorical_fields(self):
-        log(f'Dataset : One Hot Encode Categorical Fields')
+        log(f'Dataset : One Hot Encode Categorical Features')
         for column_name in self.categorical_fields:
             self.df = self.one_hot_encode(column_name)
+
+    def select_only_numerical_features(self):
+        log(f'Dataset : Select Only Numerical Features')
+        self.df = self.df[[self.target] + self.num_fields]
 
     def string_indexer(self):
         log(f'Dataset : String Indexer')

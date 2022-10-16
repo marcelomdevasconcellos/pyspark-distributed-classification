@@ -4,11 +4,12 @@ from sklearn.model_selection import cross_validate
 from sklearn import decomposition, datasets
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.pipeline import Pipeline
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
 
-class CrossValidationSkLearn:
+
+class DecisionTreeSklearn:
     def __init__(self, df):
         self.df = df
         self.training_data = None
@@ -19,15 +20,24 @@ class CrossValidationSkLearn:
         self.delta_time = None
         self.X = None
         self.y = None
-        log('CrossValidationSkLearn : Starting')
+        self.X_train = None
+        self.y_train = None
+        self.X_test = None
+        self.y_test = None
+        log('DecisionTreeSklearn : Starting')
 
-    def set_x_y(self):
-        log(f'CrossValidationSkLearn : Setting X and y')
+    def __set_x_y(self):
+        log(f'DecisionTreeSklearn : Setting X and y')
         self.X = self.df.drop(columns=['label', ])
         self.y = self.df['label']
 
-    def train(self, parameters=False):
-        log(f'CrossValidationSkLearn : Training')
+    def __split(self):
+        log(f'DecisionTreeSklearn : Splitting')
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
+            self.X, self.y, test_size=0.5, random_state=42)
+
+    def crossvalidation_train(self, parameters=False):
+        log(f'DecisionTreeSklearn : Cross Validation Training')
         dt = DecisionTreeClassifier(criterion='entropy')
         pipe = Pipeline(
             steps=[('dt', dt), ])
@@ -40,12 +50,22 @@ class CrossValidationSkLearn:
             )
         time_initial = datetime.now()
         self.model = GridSearchCV(pipe, parameters)
-        self.model.fit(self.X, self.y)
+        self.model.fit(self.X_train, self.y_train)
         self.delta_time = datetime.now() - time_initial
-        log(f'CrossValidationSkLearn : Training time {self.delta_time.total_seconds()} seconds')
+        log(f'DecisionTreeSklearn : Cross Validation Training time {self.delta_time.total_seconds()} seconds')
+
+    def train(self, parameters={'criterion': 'entropy', }):
+        log(f'DecisionTreeSklearn : Training')
+        self.__set_x_y()
+        self.__split()
+        time_initial = datetime.now()
+        clf = DecisionTreeClassifier(**parameters)
+        self.model = clf.fit(self.X_train, self.y_train)
+        self.delta_time = datetime.now() - time_initial
+        log(f'DecisionTreeSklearn : Training time {self.delta_time.total_seconds()} seconds')
 
     def get_metrics(self):
-        log(f'CrossValidationSkLearn : Getting metrics')
+        log(f'DecisionTreeSklearn : Getting metrics')
         return {
             'time': self.delta_time.total_seconds(),
             # 'best_estimator': self.model.best_estimator_,

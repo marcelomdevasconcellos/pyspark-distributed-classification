@@ -27,15 +27,17 @@ class MapReduceIDR3:
         self.delta_time = None
         log('MapReduceIDR3 : Starting')
 
-    def set_labeled_point(self):
+    def __set_labeled_point(self):
         log(f'MapReduceIDR3 : Setting Labeled Point')
         self.labeled_point = self.df.rdd.map(lambda line: LabeledPoint(line[0], line[1:]))
 
-    def split(self):
+    def __split(self):
         log(f'MapReduceIDR3 : Splitting')
         (self.training_data, self.test_data) = self.labeled_point.randomSplit([0.5, 0.5])
 
     def train(self):
+        self.__set_labeled_point()
+        self.__split()
         log(f'MapReduceIDR3 : Training')
         time_initial = datetime.now()
         self.model = DecisionTree.trainClassifier(
