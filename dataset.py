@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from log import log
+import os
+import codecs
 from sklearn.impute import SimpleImputer
 from pyspark.sql.functions import lit
 from pyspark.sql.functions import col, sum
@@ -30,6 +32,28 @@ class Dataset:
         self.df = None
         self.df_assembler = None
         log('Dataset : Starting')
+
+    def __read_file(self):
+        file = codecs.open(self.filename, "r", "utf-8")
+        content = file.read()
+        file.close()
+        return content
+
+    def __save_file(self, new_filename, content):
+        file = codecs.open(new_filename, "w", "utf-8")
+        file.write(content)
+        file.close()
+
+    def create_copy(self, new_filename, multiplication_factor, update_filename=False):
+        new_content = ''
+        text = self.__read_file()
+        for n in range(multiplication_factor):
+            new_content += '\n' + text
+        new_content = new_content.replace('\n\n', '\n')
+        self.__save_file(new_filename, new_content)
+        if update_filename:
+            self.filename = new_filename
+
 
     def load(self):
         log(f'Dataset : Loading Dataset {self.filename}')
@@ -73,7 +97,7 @@ class Dataset:
                     INT(capital_loss) AS capital_loss,
                     INT(hours_per_week) AS hours_per_week,
                     TRIM(native_country) AS native_country
-            FROM Adults ORDER BY RAND() LIMIT 400""")
+            FROM Adults""")
 
     def one_hot_encode(self, column_name):
         distinct_values = self.df.select(column_name) \
