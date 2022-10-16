@@ -54,8 +54,9 @@ class DecisionTreeSklearn:
         self.delta_time = datetime.now() - time_initial
         log(f'DecisionTreeSklearn : Cross Validation Training time {self.delta_time.total_seconds()} seconds')
 
-    def train(self, parameters={'criterion': 'entropy', }):
+    def train(self, parameters={'criterion': 'entropy', 'max_depth': 10}):
         log(f'DecisionTreeSklearn : Training')
+        # https://scikit-learn.org/stable/modules/tree.html
         self.__set_x_y()
         self.__split()
         time_initial = datetime.now()
