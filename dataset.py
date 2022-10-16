@@ -21,6 +21,14 @@ from pyspark.sql.types import StructType, StructField, IntegerType, StringType, 
 from pyspark.ml.feature import StringIndexer
 from pyspark.ml.feature import VectorAssembler
 
+
+columns = [
+    'age', 'workclass', 'fnlwgt', 'education',
+    'education_num', 'marital_status',
+    'occupation', 'relationship', 'race',
+    'sex', 'capital_gain', 'capital_loss',
+    'hours_per_week', 'native_country', 'label', ]
+
 class Dataset:
     def __init__(self, spark, filename, num_fields, categorical_fields, target):
         self.spark = spark
@@ -30,6 +38,7 @@ class Dataset:
         self.target = target
         self.schema = None
         self.df = None
+        self.df_pandas = None
         self.df_assembler = None
         log('Dataset : Starting')
 
@@ -98,6 +107,7 @@ class Dataset:
                     INT(hours_per_week) AS hours_per_week,
                     TRIM(native_country) AS native_country
             FROM Adults""")
+        self.df_pandas = pd.read_csv(self.filename, header=0, names=columns)
 
     def one_hot_encode(self, column_name):
         distinct_values = self.df.select(column_name) \
@@ -119,6 +129,7 @@ class Dataset:
     def select_only_numerical_features(self):
         log(f'Dataset : Select Only Numerical Features')
         self.df = self.df[[self.target] + self.num_fields]
+        self.df_pandas = self.df_pandas[[self.target] + self.num_fields]
 
     def string_indexer(self):
         log(f'Dataset : String Indexer')
@@ -173,10 +184,3 @@ class Dataset:
                 r.native_country_idx
             ))
             ).toDF().show()
-
-    def multiply_dataset(self, multiply):
-        log(f'Dataset : Multiplying Dataset by {multiply}x')
-        appended = self.df
-        for _ in list(range(multiply)):
-            appended = appended.union(self.df)
-        return appended

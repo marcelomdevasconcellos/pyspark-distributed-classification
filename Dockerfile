@@ -29,11 +29,11 @@ RUN python3 -m pip install setuptools==57.4.0
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8888
-EXPOSE 4000
+EXPOSE 4040
 
-CMD ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0",  "--no-browser"]
+# CMD ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0",  "--no-browser"]
 
-# docker build -t "docker push marcelovasconcellos/pyspark-distributed-classification:latest:latest" .
+# docker build -t "pyspark-distributed-classification:latest" .
 # docker tag pyspark-distributed-classification:latest marcelovasconcellos/pyspark-distributed-classification:latest
 # docker push marcelovasconcellos/pyspark-distributed-classification:latest
-# docker run -d -p 8888:8888 -m 1GB --cpus=4 "pyspark:Dockerfile"
+# docker run -d -p 8888:8888 --memory=2GB --oom-kill-disable "pyspark-distributed-classification:latest"
