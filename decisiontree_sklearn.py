@@ -78,8 +78,8 @@ class DecisionTreeSklearn:
         log(f'DecisionTreeSklearn : Getting metrics')
         return {
             'train_time': (self.train_time or self.train_time.total_seconds()),
-            'predict_time': (self.train_time or self.predict_time.total_seconds()),
-            'time': (self.train_time or self.train_time.total_seconds()) + (self.train_time or self.predict_time.total_seconds()),
+            'predict_time': (self.predict_time or self.predict_time.total_seconds()),
+            'time': (self.train_time or self.train_time.total_seconds()) + (self.predict_time or self.predict_time.total_seconds()),
             # 'best_estimator': self.model.best_estimator_,
             # 'best_score': self.model.best_score_,
             # 'best_params': self.model.best_params_,

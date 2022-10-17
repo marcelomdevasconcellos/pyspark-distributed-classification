@@ -107,6 +107,6 @@ class DecisionTreePySpark:
         log(f'DecisionTreePySpark : Get metrics')
         return {
             'train_time': (self.train_time or self.train_time.total_seconds()),
-            'predict_time': (self.train_time or self.predict_time.total_seconds()),
-            'time': (self.train_time or self.train_time.total_seconds()) + (self.train_time or self.predict_time.total_seconds()),
+            'predict_time': (self.predict_time or self.predict_time.total_seconds()),
+            'time': (self.train_time or self.train_time.total_seconds()) + (self.predict_time or self.predict_time.total_seconds()),
         }
