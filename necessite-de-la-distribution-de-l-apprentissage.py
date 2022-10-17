@@ -7,6 +7,7 @@ import pandas as pd
 from dataset import Dataset
 from log import log
 from mr_id3 import MapReduceIDR3
+from decisiontree_pyspark import DecisionTreePySpark
 from spark_session import LocalSparkSession
 
 num_fields = [
@@ -35,19 +36,20 @@ multiplication_factor = max(multiplication_factors)
 
 metrics = []
 
-filename = f'dataset/adult_{multiplication_factor}x.data'
+filename = f'dataset/adult.data'
 
 for number_of_cores in numbers_of_cores:
     spark = LocalSparkSession(number_of_cores)
     spark.start()
 
     dataset = Dataset(spark.spark, filename, num_fields, categorical_fields, target)
+    dataset.create_copy(f'dataset/adult_{multiplication_factor}x.data', multiplication_factor, update_filename=True)
     dataset.load()
     dataset.select_only_numerical_features()
 
     df = dataset.df
 
-    mr_id3 = MapReduceIDR3(df)
+    mr_id3 = DecisionTreePySpark(df)
     mr_id3.train()
 
     metric = mr_id3.get_metrics()
@@ -60,6 +62,11 @@ for number_of_cores in numbers_of_cores:
 
     spark.stop()
 
+    now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
+    df = pd.DataFrame.from_dict(metrics)
+    df.to_csv(f'results/{ENVIRONMENT}_DATASETSIZE_{multiplication_factor}_{number_of_cores}_{now}_TEMP.csv')
+    dataset.delete_copy(f'dataset/adult_{multiplication_factor}x.data')
+
 now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
 df = pd.DataFrame.from_dict(metrics)
-df.to_csv(f'results/{ENVIRONMENT}_DATASIZE_{multiplication_factor}_{now}.csv')
+df.to_csv(f'results/{ENVIRONMENT}_DATASETSIZE_{multiplication_factor}_{now}.csv')

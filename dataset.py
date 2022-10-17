@@ -54,6 +54,7 @@ class Dataset:
         file.close()
 
     def create_copy(self, new_filename, multiplication_factor, update_filename=False):
+        log(f'Dataset : Create copy {new_filename}')
         new_content = ''
         text = self.__read_file()
         for n in range(multiplication_factor):
@@ -63,6 +64,9 @@ class Dataset:
         if update_filename:
             self.filename = new_filename
 
+    def delete_copy(self, new_filename):
+        log(f'Dataset : Delete copy {new_filename}')
+        os.remove(new_filename)
 
     def load(self):
         log(f'Dataset : Loading Dataset {self.filename}')

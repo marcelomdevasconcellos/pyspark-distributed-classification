@@ -8,7 +8,23 @@ docker build -t "pyspark-distributed-classification:latest" .
 ```
 
 ```
-docker run -d -p 8888:8888 --memory=8GB "pyspark-distributed-classification:latest"
+docker run -d -p 8888:8888 --memory=4GB "pyspark-distributed-classification:latest"
+```
+
+```
+python3 create_database_copy.py
+```
+```
+python3 garantie-du-passage-a-l-echelle.py
+```
+```
+python3 necessite-de-la-distribution-de-l-apprentissage.py
+```
+```
+python3 decisiontree_compare.py
+```
+```
+python3 garantie-du-passage-a-l-echelle.py && python3 necessite-de-la-distribution-de-l-apprentissage.py && python3 decisiontree_compare.py
 ```
 
 ```

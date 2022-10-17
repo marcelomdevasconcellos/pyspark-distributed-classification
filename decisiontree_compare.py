@@ -41,8 +41,9 @@ metrics = []
 for f in multiplication_factors:
     dataset = Dataset(
         spark.spark,
-        f'dataset/adult_{f}x.data',
+        f'dataset/adult.data',
         num_fields, categorical_fields, target)
+    dataset.create_copy(f'dataset/adult_{f}x.data', f, update_filename=True)
     dataset.load()
     dataset.select_only_numerical_features()
 
@@ -75,7 +76,9 @@ for f in multiplication_factors:
 
     now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
     df = pd.DataFrame.from_dict(metrics)
-    df.to_csv(f'results/{ENVIRONMENT}_COMPARE{f}_{number_of_core}_{now}.csv')
+    df.to_csv(f'results/{ENVIRONMENT}_COMPARE_{number_of_core}_{f}_{now}_TEMP.csv')
+
+    dataset.delete_copy(f'dataset/adult_{f}x.data')
 
 spark.stop()
 
