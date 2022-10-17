@@ -44,7 +44,7 @@ for f in multiplication_factors:
         f'dataset/adult.data',
         num_fields, categorical_fields, target)
     dataset.create_copy(f'dataset/adult_{f}x.data', f, update_filename=True)
-    dataset.load()
+    dataset.load(pandas=True)
     dataset.select_only_numerical_features()
 
     df = dataset.df
@@ -63,18 +63,13 @@ for f in multiplication_factors:
     dt_pyspark = None
 
     # SKLearn
-    if df_pandas != None:
-        dt_sklearn = DecisionTreeSklearn(df_pandas)
-        dt_sklearn.train()
-        dt_sklearn.predict()
-        m = dt_sklearn.get_metrics()
-        metric_dict['sklearn_time'] = m['time']
-        metric_dict['sklearn_train_time'] = m['train_time']
-        metric_dict['sklearn_predict_time'] = m['predict_time']
-    else:
-        metric_dict['sklearn_time'] = -1
-        metric_dict['sklearn_train_time'] = -1
-        metric_dict['sklearn_predict_time'] = -1
+    dt_sklearn = DecisionTreeSklearn(df_pandas)
+    dt_sklearn.train()
+    dt_sklearn.predict()
+    m = dt_sklearn.get_metrics()
+    metric_dict['sklearn_time'] = m['time']
+    metric_dict['sklearn_train_time'] = m['train_time']
+    metric_dict['sklearn_predict_time'] = m['predict_time']
 
     dt_sklearn = None
 

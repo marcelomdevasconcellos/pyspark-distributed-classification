@@ -8,7 +8,7 @@ docker build -t "pyspark-distributed-classification:latest" .
 ```
 
 ```
-docker run -d -p 8888:8888 --memory=4GB "pyspark-distributed-classification:latest"
+docker run -d -p 8888:8888 --memory=8GB "pyspark-distributed-classification:latest"
 ```
 
 ```
