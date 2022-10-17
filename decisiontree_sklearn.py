@@ -54,7 +54,8 @@ class DecisionTreeSklearn:
         self.model = GridSearchCV(pipe, parameters)
         self.model.fit(self.X_train, self.y_train)
         self.train_time = datetime.now() - time_initial
-        log(f'DecisionTreeSklearn : Cross Validation Training time {self.train_time.total_seconds()} seconds')
+        self.train_time = self.train_time.total_seconds()
+        log(f'DecisionTreeSklearn : Cross Validation Training time {self.train_time} seconds')
 
     def train(self, parameters={'criterion': 'entropy', 'max_depth': 5}):
         log(f'DecisionTreeSklearn : Training')
@@ -65,21 +66,23 @@ class DecisionTreeSklearn:
         clf = DecisionTreeClassifier(**parameters)
         self.model = clf.fit(self.X_train, self.y_train)
         self.train_time = datetime.now() - time_initial
-        log(f'DecisionTreeSklearn : Train time {self.train_time.total_seconds()} seconds')
+        self.train_time = self.train_time.total_seconds()
+        log(f'DecisionTreeSklearn : Train time {self.train_time} seconds')
 
     def predict(self):
         log(f'DecisionTreeSklearn : Predicting')
         time_initial = datetime.now()
         self.predictions = self.model.predict(self.X_test)
         self.predict_time = datetime.now() - time_initial
-        log(f'DecisionTreeSklearn : Predict time {self.predict_time.total_seconds()} seconds')
+        self.predict_time = self.predict_time.total_seconds()
+        log(f'DecisionTreeSklearn : Predict time {self.predict_time} seconds')
 
     def get_metrics(self):
         log(f'DecisionTreeSklearn : Getting metrics')
         return {
-            'train_time': (self.train_time or self.train_time.total_seconds()),
-            'predict_time': (self.predict_time or self.predict_time.total_seconds()),
-            'time': (self.train_time or self.train_time.total_seconds()) + (self.predict_time or self.predict_time.total_seconds()),
+            'train_time': self.train_time,
+            'predict_time': self.predict_time,
+            'time': self.train_time + self.predict_time,
             # 'best_estimator': self.model.best_estimator_,
             # 'best_score': self.model.best_score_,
             # 'best_params': self.model.best_params_,

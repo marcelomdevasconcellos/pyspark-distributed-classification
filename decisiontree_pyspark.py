@@ -73,7 +73,8 @@ class DecisionTreePySpark:
                                   numFolds=2)
         self.model = crossval.fit(self.training_data)
         self.train_time = datetime.now() - time_initial
-        log(f'DecisionTreePySpark : Cross Validation Training time {self.train_time.total_seconds()} seconds')
+        self.train_time = self.train_time.total_seconds()
+        log(f'DecisionTreePySpark : Cross Validation Training time {self.train_time} seconds')
 
     def train(self, parameters=DEFAULT_PARAMETERS):
         log(f'DecisionTreePySpark : Training')
@@ -86,7 +87,8 @@ class DecisionTreePySpark:
             **parameters
         )
         self.train_time = datetime.now() - time_initial
-        log(f'DecisionTreePySpark : Train time {self.train_time.total_seconds()} seconds')
+        self.train_time = self.train_time.total_seconds()
+        log(f'DecisionTreePySpark : Train time {self.train_time} seconds')
 
     def predict(self):
         log(f'DecisionTreePySpark : Predicting')
@@ -94,7 +96,8 @@ class DecisionTreePySpark:
         self.predictions = self.model.predict(
             self.test_data.map(lambda x: x.features))
         self.predict_time = datetime.now() - time_initial
-        log(f'DecisionTreePySpark : Predict time {self.predict_time.total_seconds()} seconds')
+        self.predict_time = self.predict_time.total_seconds()
+        log(f'DecisionTreePySpark : Predict time {self.predict_time} seconds')
         # labels_and_predictions = self.test_data.map(
         #     lambda lp: lp.label).zip(self.predictions)
         # self.errors = labels_and_predictions.filter(
@@ -106,7 +109,7 @@ class DecisionTreePySpark:
     def get_metrics(self):
         log(f'DecisionTreePySpark : Get metrics')
         return {
-            'train_time': (self.train_time or self.train_time.total_seconds()),
-            'predict_time': (self.predict_time or self.predict_time.total_seconds()),
-            'time': (self.train_time or self.train_time.total_seconds()) + (self.predict_time or self.predict_time.total_seconds()),
+            'train_time': self.train_time,
+            'predict_time': self.predict_time,
+            'time': self.train_time + self.predict_time,
         }
