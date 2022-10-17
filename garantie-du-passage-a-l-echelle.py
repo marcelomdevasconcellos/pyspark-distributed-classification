@@ -70,4 +70,4 @@ spark.stop()
 
 now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
 df = pd.DataFrame.from_dict(metrics)
-df.to_csv(f'results/Garantie-du-passage-a-l-echelle_{ENVIRONMENT}_{number_of_core}_CORES__{now}.csv')
+df.to_csv(f'results/Garantie-du-passage-a-l-echelle_{ENVIRONMENT}_{number_of_core}_CORES_{now}.csv')

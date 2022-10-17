@@ -1,475 +1,490 @@
-(venv) (base) marcelovasconcellos@Mac-Pro-de-MARCELO 8INF919_Devoir1_Classification-distribuee-par-arbre-de-decision % ls
-CrossValidation-ECS.ipynb					decisiontree_compare.ipynb
-Dockerfile							decisiontree_compare.py
-Garantie-du-passage-a-l-echelle-ECS.ipynb			decisiontree_pyspark.py
-Garantie-du-passage-a-l-echelle-LOCAL.ipynb			decisiontree_sklearn.py
-LICENSE								devoir_1_8inf919_a2022.pdf
-Necessite-de-la-distribution-de-l-apprentissage-ECS.ipynb	env_cloud
-Necessite-de-la-distribution-de-l-apprentissage-LOCAL.ipynb	env_example
-README.md							exemple_code_devoir_1_8inf919
-Terminal Saved Output						garantie-du-passage-a-l-echelle.py
-__pycache__							install.sh
-adult.csv							log
-adult_dataset.ipynb						log.py
-backup								mr_id3.py
-chapitre3.pdf							necessite-de-la-distribution-de-l-apprentissage.py
-create_database_copy.ipynb					requirements.txt
-create_database_copy.py						results
-crossvalidation_compare.ipynb					spark_session.py
-dataset								venv
-dataset.py
-(venv) (base) marcelovasconcellos@Mac-Pro-de-MARCELO 8INF919_Devoir1_Classification-distribuee-par-arbre-de-decision % ls dataset
-adult.data	adult.test	adult_10x.data	adult_20x.data	adult_40x.data	adult_60x.data	adult_80x.data	old.adult.names
-adult.names	adult_100x.data	adult_1x.data	adult_30x.data	adult_50x.data	adult_70x.data	adult_90x.data
-(venv) (base) marcelovasconcellos@Mac-Pro-de-MARCELO 8INF919_Devoir1_Classification-distribuee-par-arbre-de-decision % cd dataset
-(venv) (base) marcelovasconcellos@Mac-Pro-de-MARCELO dataset % ls -l --block-size=M
-ls: unrecognized option `--block-size=M'
-usage: ls [-@ABCFGHILOPRSTUWabcdefghiklmnopqrstuvwxy1%,] [--color=when] [-D format] [file ...]
-(venv) (base) marcelovasconcellos@Mac-Pro-de-MARCELO dataset % ls -lh              
-total 4288800
--rw-r--r--@ 1 marcelovasconcellos  staff   3.8M 11 Oct 13:19 adult.data
--rw-r--r--@ 1 marcelovasconcellos  staff   5.1K 11 Oct 13:20 adult.names
--rw-r--r--@ 1 marcelovasconcellos  staff   1.9M 11 Oct 13:21 adult.test
--rw-r--r--  1 marcelovasconcellos  staff   379M 16 Oct 18:31 adult_100x.data
--rw-r--r--  1 marcelovasconcellos  staff    38M 16 Oct 18:31 adult_10x.data
--rw-r--r--  1 marcelovasconcellos  staff   3.8M 16 Oct 18:31 adult_1x.data
--rw-r--r--  1 marcelovasconcellos  staff    76M 16 Oct 18:31 adult_20x.data
--rw-r--r--  1 marcelovasconcellos  staff   114M 16 Oct 18:31 adult_30x.data
--rw-r--r--  1 marcelovasconcellos  staff   152M 16 Oct 18:31 adult_40x.data
--rw-r--r--  1 marcelovasconcellos  staff   190M 16 Oct 18:31 adult_50x.data
--rw-r--r--  1 marcelovasconcellos  staff   227M 16 Oct 18:31 adult_60x.data
--rw-r--r--  1 marcelovasconcellos  staff   265M 16 Oct 18:31 adult_70x.data
--rw-r--r--  1 marcelovasconcellos  staff   303M 16 Oct 18:31 adult_80x.data
--rw-r--r--  1 marcelovasconcellos  staff   341M 16 Oct 18:31 adult_90x.data
--rw-r--r--@ 1 marcelovasconcellos  staff   4.2K 11 Oct 13:21 old.adult.names
-(venv) (base) marcelovasconcellos@Mac-Pro-de-MARCELO dataset % cd ..
-(venv) (base) marcelovasconcellos@Mac-Pro-de-MARCELO 8INF919_Devoir1_Classification-distribuee-par-arbre-de-decision % ls
-CrossValidation-ECS.ipynb					decisiontree_compare.ipynb
-Dockerfile							decisiontree_compare.py
-Garantie-du-passage-a-l-echelle-ECS.ipynb			decisiontree_pyspark.py
-Garantie-du-passage-a-l-echelle-LOCAL.ipynb			decisiontree_sklearn.py
-LICENSE								devoir_1_8inf919_a2022.pdf
-Necessite-de-la-distribution-de-l-apprentissage-ECS.ipynb	env_cloud
-Necessite-de-la-distribution-de-l-apprentissage-LOCAL.ipynb	env_example
-README.md							exemple_code_devoir_1_8inf919
-Terminal Saved Output						garantie-du-passage-a-l-echelle.py
-__pycache__							install.sh
-adult.csv							log
-adult_dataset.ipynb						log.py
-backup								mr_id3.py
-chapitre3.pdf							necessite-de-la-distribution-de-l-apprentissage.py
-create_database_copy.ipynb					requirements.txt
-create_database_copy.py						results
-crossvalidation_compare.ipynb					spark_session.py
-dataset								venv
-dataset.py
-(venv) (base) marcelovasconcellos@Mac-Pro-de-MARCELO 8INF919_Devoir1_Classification-distribuee-par-arbre-de-decision % python garantie-du-passage-a-l-echelle.py && python necessite-de-la-distribution-de-l-apprentissage.py && python decisiontree_compare.py 
-2022-10-16 21:05:13,218 [INFO] LocalSparkSession : Starting with 4 clusters
-22/10/16 21:05:15 WARN Utils: Your hostname, Mac-Pro-de-MARCELO.local resolves to a loopback address: 127.0.0.1; using 192.168.0.62 instead (on interface en2)
-22/10/16 21:05:15 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+(venv) (base) marcelovasconcellos@Mac-Pro-de-MARCELO 8INF919_Devoir1_Classification-distribuee-par-arbre-de-decision % python3 garantie-du-passage-a-l-echelle.py && python3 necessite-de-la-distribution-de-l-apprentissage.py && python3 decisiontree_compare.py
+2022-10-17 13:59:36,738 [INFO] LocalSparkSession : Starting with 4 clusters
+22/10/17 13:59:38 WARN Utils: Your hostname, Mac-Pro-de-MARCELO.local resolves to a loopback address: 127.0.0.1; using 192.168.0.62 instead (on interface en2)
+22/10/17 13:59:38 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-22/10/16 21:05:15 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-2022-10-16 21:05:17,604 [INFO] Dataset : Starting
-2022-10-16 21:05:17,604 [INFO] Dataset : Loading Dataset dataset/adult_1x.data
-2022-10-16 21:05:20,925 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:05:20,992 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:05:20,992 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:05:20,993 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:05:21,951 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:05:21,952 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:05:27,592 [INFO] DecisionTreePySpark : Train time 5.419904 seconds
-2022-10-16 21:05:27,592 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:05:28,103 [INFO] Metrics: Clusters 4 - Dataset size 1x - Time 5.419904 seconds
-2022-10-16 21:05:28,104 [INFO] Dataset : Starting
-2022-10-16 21:05:28,104 [INFO] Dataset : Loading Dataset dataset/adult_10x.data
-2022-10-16 21:05:28,763 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:05:28,794 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:05:28,794 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:05:28,795 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:05:28,876 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:05:28,876 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:05:35,098 [INFO] DecisionTreePySpark : Train time 6.182522 seconds
-2022-10-16 21:05:35,098 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:05:35,356 [INFO] Metrics: Clusters 4 - Dataset size 10x - Time 6.182522 seconds
-2022-10-16 21:05:35,356 [INFO] Dataset : Starting
-2022-10-16 21:05:35,358 [INFO] Dataset : Loading Dataset dataset/adult_20x.data
-2022-10-16 21:05:36,488 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:05:36,529 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:05:36,530 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:05:36,530 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:05:36,594 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:05:36,594 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:05:44,187 [INFO] DecisionTreePySpark : Train time 7.522865 seconds
-2022-10-16 21:05:44,188 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:05:44,527 [INFO] Metrics: Clusters 4 - Dataset size 20x - Time 7.522865 seconds
-2022-10-16 21:05:44,527 [INFO] Dataset : Starting
-2022-10-16 21:05:44,530 [INFO] Dataset : Loading Dataset dataset/adult_30x.data
-2022-10-16 21:05:46,179 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:05:46,229 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:05:46,229 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:05:46,230 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:05:46,292 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:05:46,293 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:05:56,114 [INFO] DecisionTreePySpark : Train time 9.751782 seconds
-2022-10-16 21:05:56,115 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:05:56,504 [INFO] Metrics: Clusters 4 - Dataset size 30x - Time 9.751782 seconds
-2022-10-16 21:05:56,504 [INFO] Dataset : Starting
-2022-10-16 21:05:56,508 [INFO] Dataset : Loading Dataset dataset/adult_40x.data
-2022-10-16 21:05:58,610 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:05:58,672 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:05:58,672 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:05:58,672 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:05:58,722 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:05:58,722 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:06:11,480 [INFO] DecisionTreePySpark : Train time 12.702032 seconds
-2022-10-16 21:06:11,480 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:06:12,010 [INFO] Metrics: Clusters 4 - Dataset size 40x - Time 12.702032 seconds
-2022-10-16 21:06:12,010 [INFO] Dataset : Starting
-2022-10-16 21:06:12,016 [INFO] Dataset : Loading Dataset dataset/adult_50x.data
-2022-10-16 21:06:14,669 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:06:14,738 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:06:14,738 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:06:14,738 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:06:14,785 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:06:14,786 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:06:31,490 [INFO] DecisionTreePySpark : Train time 16.641072 seconds
-2022-10-16 21:06:31,490 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:06:32,089 [INFO] Metrics: Clusters 4 - Dataset size 50x - Time 16.641072 seconds
-2022-10-16 21:06:32,089 [INFO] Dataset : Starting
-2022-10-16 21:06:32,096 [INFO] Dataset : Loading Dataset dataset/adult_60x.data
-2022-10-16 21:06:35,393 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:06:35,474 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:06:35,474 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:06:35,474 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:06:35,516 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:06:35,516 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:06:54,795 [INFO] DecisionTreePySpark : Train time 19.221521 seconds
-2022-10-16 21:06:54,795 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:06:55,491 [INFO] Metrics: Clusters 4 - Dataset size 60x - Time 19.221521 seconds
-2022-10-16 21:06:55,492 [INFO] Dataset : Starting
-2022-10-16 21:06:55,502 [INFO] Dataset : Loading Dataset dataset/adult_70x.data
-2022-10-16 21:06:59,238 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:06:59,328 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:06:59,329 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:06:59,329 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:06:59,377 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:06:59,377 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:07:21,375 [INFO] DecisionTreePySpark : Train time 21.943053 seconds
-2022-10-16 21:07:21,376 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:07:22,288 [INFO] Metrics: Clusters 4 - Dataset size 70x - Time 21.943053 seconds
-2022-10-16 21:07:22,288 [INFO] Dataset : Starting
-2022-10-16 21:07:22,298 [INFO] Dataset : Loading Dataset dataset/adult_80x.data
-2022-10-16 21:07:26,625 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:07:26,729 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:07:26,729 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:07:26,729 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:07:26,771 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:07:26,772 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:07:52,890 [INFO] DecisionTreePySpark : Train time 26.063496 seconds
-2022-10-16 21:07:52,890 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:07:53,753 [INFO] Metrics: Clusters 4 - Dataset size 80x - Time 26.063496 seconds
-2022-10-16 21:07:53,753 [INFO] Dataset : Starting
-2022-10-16 21:07:53,768 [INFO] Dataset : Loading Dataset dataset/adult_90x.data
-2022-10-16 21:07:58,462 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:07:58,575 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:07:58,575 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:07:58,575 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:07:58,615 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:07:58,616 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:08:27,650 [INFO] DecisionTreePySpark : Train time 28.980555 seconds
-2022-10-16 21:08:27,650 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:08:28,748 [INFO] Metrics: Clusters 4 - Dataset size 90x - Time 28.980555 seconds
-2022-10-16 21:08:28,748 [INFO] Dataset : Starting
-2022-10-16 21:08:28,764 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
-2022-10-16 21:08:34,104 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:08:34,227 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:08:34,228 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:08:34,228 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:08:34,278 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:08:34,278 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:09:06,618 [INFO] DecisionTreePySpark : Train time 32.277783 seconds
-2022-10-16 21:09:06,619 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:09:07,888 [INFO] Metrics: Clusters 4 - Dataset size 100x - Time 32.277783 seconds
-2022-10-16 21:09:07,888 [INFO] LocalSparkSession : Stopping
-2022-10-16 21:09:11,683 [INFO] LocalSparkSession : Starting with 1 clusters
-22/10/16 21:09:13 WARN Utils: Your hostname, Mac-Pro-de-MARCELO.local resolves to a loopback address: 127.0.0.1; using 192.168.0.62 instead (on interface en2)
-22/10/16 21:09:13 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+22/10/17 13:59:39 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-10-17 13:59:41,267 [INFO] Dataset : Starting
+2022-10-17 13:59:41,267 [INFO] Dataset : Create copy dataset/adult_1x.data
+2022-10-17 13:59:41,287 [INFO] Dataset : Loading Dataset dataset/adult_1x.data
+2022-10-17 13:59:44,508 [INFO] Dataset : Loading Pandas Dataset dataset/adult_1x.data
+2022-10-17 13:59:44,572 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 13:59:44,639 [INFO] DecisionTreePySpark : Starting
+2022-10-17 13:59:44,639 [INFO] DecisionTreePySpark : Training
+2022-10-17 13:59:44,640 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 13:59:45,532 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 13:59:45,532 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 13:59:51,003 [INFO] DecisionTreePySpark : Train time 5.246281 seconds
+2022-10-17 13:59:51,003 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 13:59:51,499 [INFO] Metrics: Clusters 4 - Dataset size 1x - Time 5.246281 seconds
+2022-10-17 13:59:51,499 [INFO] Dataset : Delete copy dataset/adult_1x.data
+2022-10-17 13:59:51,500 [INFO] Dataset : Starting
+2022-10-17 13:59:51,501 [INFO] Dataset : Create copy dataset/adult_10x.data
+2022-10-17 13:59:51,714 [INFO] Dataset : Loading Dataset dataset/adult_10x.data
+2022-10-17 13:59:51,802 [INFO] Dataset : Loading Pandas Dataset dataset/adult_10x.data
+2022-10-17 13:59:52,327 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 13:59:52,360 [INFO] DecisionTreePySpark : Starting
+2022-10-17 13:59:52,360 [INFO] DecisionTreePySpark : Training
+2022-10-17 13:59:52,360 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 13:59:52,596 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 13:59:52,596 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 13:59:58,358 [INFO] DecisionTreePySpark : Train time 5.679781 seconds
+2022-10-17 13:59:58,358 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 13:59:58,621 [INFO] Metrics: Clusters 4 - Dataset size 10x - Time 5.679781 seconds
+2022-10-17 13:59:58,621 [INFO] Dataset : Delete copy dataset/adult_10x.data
+2022-10-17 13:59:58,623 [INFO] Dataset : Starting
+2022-10-17 13:59:58,624 [INFO] Dataset : Create copy dataset/adult_20x.data
+2022-10-17 13:59:59,083 [INFO] Dataset : Loading Dataset dataset/adult_20x.data
+2022-10-17 13:59:59,156 [INFO] Dataset : Loading Pandas Dataset dataset/adult_20x.data
+2022-10-17 14:00:00,143 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:00:00,181 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:00:00,182 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:00:00,182 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:00:00,250 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:00:00,250 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:00:07,567 [INFO] DecisionTreePySpark : Train time 7.247298 seconds
+2022-10-17 14:00:07,567 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:00:07,994 [INFO] Metrics: Clusters 4 - Dataset size 20x - Time 7.247298 seconds
+2022-10-17 14:00:07,994 [INFO] Dataset : Delete copy dataset/adult_20x.data
+2022-10-17 14:00:07,997 [INFO] Dataset : Starting
+2022-10-17 14:00:08,000 [INFO] Dataset : Create copy dataset/adult_30x.data
+2022-10-17 14:00:08,621 [INFO] Dataset : Loading Dataset dataset/adult_30x.data
+2022-10-17 14:00:08,672 [INFO] Dataset : Loading Pandas Dataset dataset/adult_30x.data
+2022-10-17 14:00:10,131 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:00:10,249 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:00:10,249 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:00:10,249 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:00:10,411 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:00:10,412 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:00:20,708 [INFO] DecisionTreePySpark : Train time 10.230287 seconds
+2022-10-17 14:00:20,708 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:00:21,154 [INFO] Metrics: Clusters 4 - Dataset size 30x - Time 10.230287 seconds
+2022-10-17 14:00:21,154 [INFO] Dataset : Delete copy dataset/adult_30x.data
+2022-10-17 14:00:21,158 [INFO] Dataset : Starting
+2022-10-17 14:00:21,163 [INFO] Dataset : Create copy dataset/adult_40x.data
+2022-10-17 14:00:21,988 [INFO] Dataset : Loading Dataset dataset/adult_40x.data
+2022-10-17 14:00:22,039 [INFO] Dataset : Loading Pandas Dataset dataset/adult_40x.data
+2022-10-17 14:00:24,078 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:00:24,143 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:00:24,143 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:00:24,143 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:00:24,263 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:00:24,263 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:00:37,605 [INFO] DecisionTreePySpark : Train time 13.280413 seconds
+2022-10-17 14:00:37,605 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:00:38,197 [INFO] Metrics: Clusters 4 - Dataset size 40x - Time 13.280413 seconds
+2022-10-17 14:00:38,197 [INFO] Dataset : Delete copy dataset/adult_40x.data
+2022-10-17 14:00:38,205 [INFO] Dataset : Starting
+2022-10-17 14:00:38,210 [INFO] Dataset : Create copy dataset/adult_50x.data
+2022-10-17 14:00:39,233 [INFO] Dataset : Loading Dataset dataset/adult_50x.data
+2022-10-17 14:00:39,280 [INFO] Dataset : Loading Pandas Dataset dataset/adult_50x.data
+2022-10-17 14:00:41,840 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:00:41,909 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:00:41,909 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:00:41,909 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:00:41,956 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:00:41,957 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:00:57,846 [INFO] DecisionTreePySpark : Train time 15.831495 seconds
+2022-10-17 14:00:57,846 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:00:58,513 [INFO] Metrics: Clusters 4 - Dataset size 50x - Time 15.831495 seconds
+2022-10-17 14:00:58,513 [INFO] Dataset : Delete copy dataset/adult_50x.data
+2022-10-17 14:00:58,523 [INFO] Dataset : Starting
+2022-10-17 14:00:58,529 [INFO] Dataset : Create copy dataset/adult_60x.data
+2022-10-17 14:00:59,766 [INFO] Dataset : Loading Dataset dataset/adult_60x.data
+2022-10-17 14:00:59,812 [INFO] Dataset : Loading Pandas Dataset dataset/adult_60x.data
+2022-10-17 14:01:02,897 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:01:02,986 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:01:02,986 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:01:02,986 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:01:03,043 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:01:03,044 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:01:23,690 [INFO] DecisionTreePySpark : Train time 20.58518 seconds
+2022-10-17 14:01:23,690 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:01:24,436 [INFO] Metrics: Clusters 4 - Dataset size 60x - Time 20.58518 seconds
+2022-10-17 14:01:24,437 [INFO] Dataset : Delete copy dataset/adult_60x.data
+2022-10-17 14:01:24,448 [INFO] Dataset : Starting
+2022-10-17 14:01:24,456 [INFO] Dataset : Create copy dataset/adult_70x.data
+2022-10-17 14:01:25,942 [INFO] Dataset : Loading Dataset dataset/adult_70x.data
+2022-10-17 14:01:25,987 [INFO] Dataset : Loading Pandas Dataset dataset/adult_70x.data
+2022-10-17 14:01:29,580 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:01:29,673 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:01:29,673 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:01:29,673 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:01:29,712 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:01:29,712 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:01:51,221 [INFO] DecisionTreePySpark : Train time 21.453714 seconds
+2022-10-17 14:01:51,221 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:01:52,015 [INFO] Metrics: Clusters 4 - Dataset size 70x - Time 21.453714 seconds
+2022-10-17 14:01:52,016 [INFO] Dataset : Delete copy dataset/adult_70x.data
+2022-10-17 14:01:52,029 [INFO] Dataset : Starting
+2022-10-17 14:01:52,039 [INFO] Dataset : Create copy dataset/adult_80x.data
+2022-10-17 14:01:53,699 [INFO] Dataset : Loading Dataset dataset/adult_80x.data
+2022-10-17 14:01:53,741 [INFO] Dataset : Loading Pandas Dataset dataset/adult_80x.data
+2022-10-17 14:01:57,966 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:01:58,068 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:01:58,068 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:01:58,068 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:01:58,121 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:01:58,121 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:02:22,897 [INFO] DecisionTreePySpark : Train time 24.719506 seconds
+2022-10-17 14:02:22,897 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:02:23,724 [INFO] Metrics: Clusters 4 - Dataset size 80x - Time 24.719506 seconds
+2022-10-17 14:02:23,724 [INFO] Dataset : Delete copy dataset/adult_80x.data
+2022-10-17 14:02:23,739 [INFO] Dataset : Starting
+2022-10-17 14:02:23,754 [INFO] Dataset : Create copy dataset/adult_90x.data
+2022-10-17 14:02:25,662 [INFO] Dataset : Loading Dataset dataset/adult_90x.data
+2022-10-17 14:02:25,701 [INFO] Dataset : Loading Pandas Dataset dataset/adult_90x.data
+2022-10-17 14:02:30,631 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:02:30,743 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:02:30,743 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:02:30,743 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:02:30,788 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:02:30,788 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:02:58,089 [INFO] DecisionTreePySpark : Train time 27.253238 seconds
+2022-10-17 14:02:58,089 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:02:59,143 [INFO] Metrics: Clusters 4 - Dataset size 90x - Time 27.253238 seconds
+2022-10-17 14:02:59,143 [INFO] Dataset : Delete copy dataset/adult_90x.data
+2022-10-17 14:02:59,161 [INFO] Dataset : Starting
+2022-10-17 14:02:59,179 [INFO] Dataset : Create copy dataset/adult_100x.data
+2022-10-17 14:03:01,349 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
+2022-10-17 14:03:01,384 [INFO] Dataset : Loading Pandas Dataset dataset/adult_100x.data
+2022-10-17 14:03:06,595 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:03:06,717 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:03:06,717 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:03:06,717 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:03:06,768 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:03:06,768 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:03:37,650 [INFO] DecisionTreePySpark : Train time 30.833401 seconds
+2022-10-17 14:03:37,651 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:03:38,700 [INFO] Metrics: Clusters 4 - Dataset size 100x - Time 30.833401 seconds
+2022-10-17 14:03:38,700 [INFO] Dataset : Delete copy dataset/adult_100x.data
+2022-10-17 14:03:38,713 [INFO] LocalSparkSession : Stopping
+2022-10-17 14:03:42,392 [INFO] LocalSparkSession : Starting with 1 clusters
+22/10/17 14:03:44 WARN Utils: Your hostname, Mac-Pro-de-MARCELO.local resolves to a loopback address: 127.0.0.1; using 192.168.0.62 instead (on interface en2)
+22/10/17 14:03:44 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-22/10/16 21:09:14 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-2022-10-16 21:09:16,367 [INFO] Dataset : Starting
-2022-10-16 21:09:16,367 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
-2022-10-16 21:09:24,909 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:09:25,078 [INFO] MapReduceIDR3 : Starting
-2022-10-16 21:09:25,078 [INFO] MapReduceIDR3 : Setting Labeled Point
-2022-10-16 21:09:26,068 [INFO] MapReduceIDR3 : Splitting
-2022-10-16 21:09:26,068 [INFO] MapReduceIDR3 : Training
-2022-10-16 21:10:28,057 [INFO] MapReduceIDR3 : Training time 61.9879 seconds    
-2022-10-16 21:10:28,057 [INFO] MapReduceIDR3 : Get metrics
-2022-10-16 21:10:30,265 [INFO] Metrics: Clusters 1 - Dataset size 100x - Time 61.9879 seconds
-2022-10-16 21:10:30,265 [INFO] LocalSparkSession : Stopping
-2022-10-16 21:10:31,267 [INFO] LocalSparkSession : Starting with 2 clusters
-2022-10-16 21:10:31,365 [INFO] Dataset : Starting
-2022-10-16 21:10:31,377 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
-2022-10-16 21:10:36,419 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:10:36,540 [INFO] MapReduceIDR3 : Starting
-2022-10-16 21:10:36,540 [INFO] MapReduceIDR3 : Setting Labeled Point
-2022-10-16 21:10:36,623 [INFO] MapReduceIDR3 : Splitting
-2022-10-16 21:10:36,623 [INFO] MapReduceIDR3 : Training
-2022-10-16 21:11:18,193 [INFO] MapReduceIDR3 : Training time 41.569835 seconds  
-2022-10-16 21:11:18,193 [INFO] MapReduceIDR3 : Get metrics
-2022-10-16 21:11:19,875 [INFO] Metrics: Clusters 2 - Dataset size 100x - Time 41.569835 seconds
-2022-10-16 21:11:19,876 [INFO] LocalSparkSession : Stopping
-2022-10-16 21:11:20,168 [INFO] LocalSparkSession : Starting with 3 clusters
-2022-10-16 21:11:20,269 [INFO] Dataset : Starting
-2022-10-16 21:11:20,281 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
-2022-10-16 21:11:25,302 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:11:25,422 [INFO] MapReduceIDR3 : Starting
-2022-10-16 21:11:25,422 [INFO] MapReduceIDR3 : Setting Labeled Point
-2022-10-16 21:11:25,480 [INFO] MapReduceIDR3 : Splitting
-2022-10-16 21:11:25,481 [INFO] MapReduceIDR3 : Training
-2022-10-16 21:12:06,457 [INFO] MapReduceIDR3 : Training time 40.976111 seconds  
-2022-10-16 21:12:06,457 [INFO] MapReduceIDR3 : Get metrics
-2022-10-16 21:12:07,616 [INFO] Metrics: Clusters 3 - Dataset size 100x - Time 40.976111 seconds
-2022-10-16 21:12:07,616 [INFO] LocalSparkSession : Stopping
-2022-10-16 21:12:08,618 [INFO] LocalSparkSession : Starting with 4 clusters
-2022-10-16 21:12:08,707 [INFO] Dataset : Starting
-2022-10-16 21:12:08,719 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
-2022-10-16 21:12:13,661 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:12:13,777 [INFO] MapReduceIDR3 : Starting
-2022-10-16 21:12:13,777 [INFO] MapReduceIDR3 : Setting Labeled Point
-2022-10-16 21:12:13,849 [INFO] MapReduceIDR3 : Splitting
-2022-10-16 21:12:13,850 [INFO] MapReduceIDR3 : Training
-2022-10-16 21:12:48,045 [INFO] MapReduceIDR3 : Training time 34.195541 seconds  
-2022-10-16 21:12:48,046 [INFO] MapReduceIDR3 : Get metrics
-2022-10-16 21:12:49,086 [INFO] Metrics: Clusters 4 - Dataset size 100x - Time 34.195541 seconds
-2022-10-16 21:12:49,086 [INFO] LocalSparkSession : Stopping
-2022-10-16 21:12:52,731 [INFO] LocalSparkSession : Starting with 4 clusters
-22/10/16 21:12:54 WARN Utils: Your hostname, Mac-Pro-de-MARCELO.local resolves to a loopback address: 127.0.0.1; using 192.168.0.62 instead (on interface en2)
-22/10/16 21:12:54 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+22/10/17 14:03:45 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-10-17 14:03:47,352 [INFO] Dataset : Starting
+2022-10-17 14:03:47,353 [INFO] Dataset : Create copy dataset/adult_100x.data
+2022-10-17 14:03:49,428 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
+2022-10-17 14:03:52,772 [INFO] Dataset : Loading Pandas Dataset dataset/adult_100x.data
+2022-10-17 14:03:58,325 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:03:58,490 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:03:58,491 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:03:58,491 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:03:59,534 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:03:59,534 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:05:11,249 [INFO] DecisionTreePySpark : Train time 71.489612 seconds
+2022-10-17 14:05:11,250 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:05:13,865 [INFO] Metrics: Clusters 1 - Dataset size 100x - Time 71.489612 seconds
+2022-10-17 14:05:13,865 [INFO] LocalSparkSession : Stopping
+2022-10-17 14:05:14,173 [INFO] Dataset : Delete copy dataset/adult_100x.data
+2022-10-17 14:05:14,187 [INFO] LocalSparkSession : Starting with 2 clusters
+2022-10-17 14:05:14,300 [INFO] Dataset : Starting
+2022-10-17 14:05:14,313 [INFO] Dataset : Create copy dataset/adult_100x.data
+2022-10-17 14:05:16,181 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
+2022-10-17 14:05:16,265 [INFO] Dataset : Loading Pandas Dataset dataset/adult_100x.data
+2022-10-17 14:05:22,322 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:05:22,459 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:05:22,459 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:05:22,459 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:05:22,591 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:05:22,592 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:06:12,218 [INFO] DecisionTreePySpark : Train time 49.522613 seconds
+2022-10-17 14:06:12,218 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:06:14,044 [INFO] Metrics: Clusters 2 - Dataset size 100x - Time 49.522613 seconds
+2022-10-17 14:06:14,045 [INFO] LocalSparkSession : Stopping
+2022-10-17 14:06:14,192 [INFO] Dataset : Delete copy dataset/adult_100x.data
+2022-10-17 14:06:14,205 [INFO] LocalSparkSession : Starting with 3 clusters
+2022-10-17 14:06:14,320 [INFO] Dataset : Starting
+2022-10-17 14:06:14,334 [INFO] Dataset : Create copy dataset/adult_100x.data
+2022-10-17 14:06:16,253 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
+2022-10-17 14:06:16,324 [INFO] Dataset : Loading Pandas Dataset dataset/adult_100x.data
+2022-10-17 14:06:22,244 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:06:22,382 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:06:22,382 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:06:22,383 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:06:22,509 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:06:22,509 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:07:11,681 [INFO] DecisionTreePySpark : Train time 49.087734 seconds
+2022-10-17 14:07:11,681 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:07:13,139 [INFO] Metrics: Clusters 3 - Dataset size 100x - Time 49.087734 seconds
+2022-10-17 14:07:13,139 [INFO] LocalSparkSession : Stopping
+2022-10-17 14:07:13,651 [INFO] Dataset : Delete copy dataset/adult_100x.data
+2022-10-17 14:07:13,665 [INFO] LocalSparkSession : Starting with 4 clusters
+2022-10-17 14:07:13,767 [INFO] Dataset : Starting
+2022-10-17 14:07:13,782 [INFO] Dataset : Create copy dataset/adult_100x.data
+2022-10-17 14:07:15,752 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
+2022-10-17 14:07:15,823 [INFO] Dataset : Loading Pandas Dataset dataset/adult_100x.data
+2022-10-17 14:07:21,502 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:07:21,632 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:07:21,632 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:07:21,632 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:07:21,727 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:07:21,727 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:08:01,748 [INFO] DecisionTreePySpark : Train time 39.948902 seconds
+2022-10-17 14:08:01,748 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:08:03,044 [INFO] Metrics: Clusters 4 - Dataset size 100x - Time 39.948902 seconds
+2022-10-17 14:08:03,044 [INFO] LocalSparkSession : Stopping
+2022-10-17 14:08:04,046 [INFO] Dataset : Delete copy dataset/adult_100x.data
+2022-10-17 14:08:07,069 [INFO] LocalSparkSession : Starting with 4 clusters
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-22/10/16 21:12:55 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-2022-10-16 21:12:57,382 [INFO] Dataset : Starting
-2022-10-16 21:12:57,383 [INFO] Dataset : Loading Dataset dataset/adult_1x.data
-2022-10-16 21:13:01,094 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:13:01,180 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:13:01,180 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:13:01,180 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:13:02,353 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:13:02,353 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:13:08,405 [INFO] DecisionTreePySpark : Train time 5.679153 seconds
-2022-10-16 21:13:08,405 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:13:08,432 [INFO] DecisionTreePySpark : Predict time 0.026246 seconds
-2022-10-16 21:13:08,432 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:13:08,432 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:13:08,432 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:13:08,432 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:13:08,434 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:13:08,475 [INFO] DecisionTreeSklearn : Train time 0.036945 seconds
-2022-10-16 21:13:08,475 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:13:08,478 [INFO] DecisionTreeSklearn : Predict time 0.002395 seconds
-2022-10-16 21:13:08,478 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:13:08,482 [INFO] Dataset : Starting
-2022-10-16 21:13:08,482 [INFO] Dataset : Loading Dataset dataset/adult_10x.data
-2022-10-16 21:13:09,106 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:13:09,179 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:13:09,179 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:13:09,180 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:13:09,258 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:13:09,258 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:13:14,612 [INFO] DecisionTreePySpark : Train time 5.280164 seconds
-2022-10-16 21:13:14,612 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:13:14,629 [INFO] DecisionTreePySpark : Predict time 0.016018 seconds
-2022-10-16 21:13:14,629 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:13:14,629 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:13:14,629 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:13:14,629 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:13:14,633 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:13:15,106 [INFO] DecisionTreeSklearn : Train time 0.431934 seconds
-2022-10-16 21:13:15,106 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:13:15,117 [INFO] DecisionTreeSklearn : Predict time 0.010613 seconds
-2022-10-16 21:13:15,117 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:13:15,121 [INFO] Dataset : Starting
-2022-10-16 21:13:15,121 [INFO] Dataset : Loading Dataset dataset/adult_20x.data
-2022-10-16 21:13:16,170 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:13:16,291 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:13:16,291 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:13:16,291 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:13:16,374 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:13:16,374 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:13:23,108 [INFO] DecisionTreePySpark : Train time 6.666873 seconds
-2022-10-16 21:13:23,108 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:13:23,123 [INFO] DecisionTreePySpark : Predict time 0.015124 seconds
-2022-10-16 21:13:23,123 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:13:23,124 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:13:23,124 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:13:23,124 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:13:23,130 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:13:24,152 [INFO] DecisionTreeSklearn : Train time 0.919447 seconds
-2022-10-16 21:13:24,152 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:13:24,172 [INFO] DecisionTreeSklearn : Predict time 0.019987 seconds
-2022-10-16 21:13:24,172 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:13:24,182 [INFO] Dataset : Starting
-2022-10-16 21:13:24,182 [INFO] Dataset : Loading Dataset dataset/adult_30x.data
-2022-10-16 21:13:25,715 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:13:25,892 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:13:25,892 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:13:25,892 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:13:26,002 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:13:26,002 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:13:36,057 [INFO] DecisionTreePySpark : Train time 9.98106 seconds 
-2022-10-16 21:13:36,057 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:13:36,075 [INFO] DecisionTreePySpark : Predict time 0.017622 seconds
-2022-10-16 21:13:36,075 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:13:36,075 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:13:36,075 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:13:36,075 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:13:36,086 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:13:37,807 [INFO] DecisionTreeSklearn : Train time 1.546295 seconds
-2022-10-16 21:13:37,808 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:13:37,837 [INFO] DecisionTreeSklearn : Predict time 0.028696 seconds
-2022-10-16 21:13:37,837 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:13:37,849 [INFO] Dataset : Starting
-2022-10-16 21:13:37,849 [INFO] Dataset : Loading Dataset dataset/adult_40x.data
-2022-10-16 21:13:39,838 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:13:40,066 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:13:40,066 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:13:40,066 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:13:40,130 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:13:40,130 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:13:53,065 [INFO] DecisionTreePySpark : Train time 12.869205 seconds
-2022-10-16 21:13:53,066 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:13:53,081 [INFO] DecisionTreePySpark : Predict time 0.015641 seconds
-2022-10-16 21:13:53,082 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:13:53,082 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:13:53,082 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:13:53,082 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:13:53,096 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:13:55,527 [INFO] DecisionTreeSklearn : Train time 2.177883 seconds
-2022-10-16 21:13:55,527 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:13:55,565 [INFO] DecisionTreeSklearn : Predict time 0.037025 seconds
-2022-10-16 21:13:55,565 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:13:55,581 [INFO] Dataset : Starting
-2022-10-16 21:13:55,582 [INFO] Dataset : Loading Dataset dataset/adult_50x.data
-2022-10-16 21:13:58,063 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:13:58,347 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:13:58,348 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:13:58,348 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:13:58,478 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:13:58,478 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:14:13,915 [INFO] DecisionTreePySpark : Train time 15.341523 seconds
-2022-10-16 21:14:13,915 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:14:13,932 [INFO] DecisionTreePySpark : Predict time 0.016111 seconds
-2022-10-16 21:14:13,932 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:14:13,932 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:14:13,932 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:14:13,932 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:14:13,950 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:14:17,148 [INFO] DecisionTreeSklearn : Train time 2.85459 seconds
-2022-10-16 21:14:17,148 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:14:17,195 [INFO] DecisionTreeSklearn : Predict time 0.046902 seconds
-2022-10-16 21:14:17,196 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:14:17,214 [INFO] Dataset : Starting
-2022-10-16 21:14:17,214 [INFO] Dataset : Loading Dataset dataset/adult_60x.data
-2022-10-16 21:14:20,265 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:14:20,596 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:14:20,596 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:14:20,597 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:14:20,673 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:14:20,674 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:14:39,300 [INFO] DecisionTreePySpark : Train time 18.571992 seconds
-2022-10-16 21:14:39,300 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:14:39,316 [INFO] DecisionTreePySpark : Predict time 0.015586 seconds
-2022-10-16 21:14:39,316 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:14:39,317 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:14:39,317 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:14:39,317 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:14:39,338 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:14:43,429 [INFO] DecisionTreeSklearn : Train time 3.653647 seconds
-2022-10-16 21:14:43,429 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:14:43,488 [INFO] DecisionTreeSklearn : Predict time 0.05868 seconds
-2022-10-16 21:14:43,488 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:14:43,514 [INFO] Dataset : Starting
-2022-10-16 21:14:43,514 [INFO] Dataset : Loading Dataset dataset/adult_70x.data
-2022-10-16 21:14:47,006 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:14:47,390 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:14:47,390 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:14:47,390 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:14:47,432 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:14:47,432 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:15:09,397 [INFO] DecisionTreePySpark : Train time 21.909435 seconds
-2022-10-16 21:15:09,397 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:15:09,412 [INFO] DecisionTreePySpark : Predict time 0.014349 seconds
-2022-10-16 21:15:09,412 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:15:09,412 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:15:09,412 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:15:09,413 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:15:09,436 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:15:14,353 [INFO] DecisionTreeSklearn : Train time 4.396141 seconds
-2022-10-16 21:15:14,353 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:15:14,417 [INFO] DecisionTreeSklearn : Predict time 0.06382 seconds
-2022-10-16 21:15:14,417 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:15:14,437 [INFO] Dataset : Starting
-2022-10-16 21:15:14,438 [INFO] Dataset : Loading Dataset dataset/adult_80x.data
-2022-10-16 21:15:18,504 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:15:18,938 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:15:18,938 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:15:18,938 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:15:18,994 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:15:18,994 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:15:43,544 [INFO] DecisionTreePySpark : Train time 24.496238 seconds
-2022-10-16 21:15:43,544 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:15:43,560 [INFO] DecisionTreePySpark : Predict time 0.01652 seconds
-2022-10-16 21:15:43,561 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:15:43,561 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:15:43,561 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:15:43,561 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:15:43,589 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:15:49,457 [INFO] DecisionTreeSklearn : Train time 5.193277 seconds
-2022-10-16 21:15:49,458 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:15:49,535 [INFO] DecisionTreeSklearn : Predict time 0.077006 seconds
-2022-10-16 21:15:49,535 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:15:49,560 [INFO] Dataset : Starting
-2022-10-16 21:15:49,560 [INFO] Dataset : Loading Dataset dataset/adult_90x.data
-2022-10-16 21:15:54,241 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:15:54,730 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:15:54,730 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:15:54,730 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:15:54,793 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:15:54,793 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:16:22,113 [INFO] DecisionTreePySpark : Train time 27.269435 seconds
-2022-10-16 21:16:22,113 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:16:22,126 [INFO] DecisionTreePySpark : Predict time 0.013212 seconds
-2022-10-16 21:16:22,127 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:16:22,127 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:16:22,127 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:16:22,127 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:16:22,157 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:16:28,903 [INFO] DecisionTreeSklearn : Train time 6.031452 seconds
-2022-10-16 21:16:28,903 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:16:28,985 [INFO] DecisionTreeSklearn : Predict time 0.081731 seconds
-2022-10-16 21:16:28,986 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:16:29,015 [INFO] Dataset : Starting
-2022-10-16 21:16:29,015 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
-2022-10-16 21:16:34,345 [INFO] Dataset : Select Only Numerical Features
-2022-10-16 21:16:34,882 [INFO] DecisionTreePySpark : Starting
-2022-10-16 21:16:34,883 [INFO] DecisionTreePySpark : Training
-2022-10-16 21:16:34,883 [INFO] DecisionTreePySpark : Setting Labeled Point
-2022-10-16 21:16:34,947 [INFO] DecisionTreePySpark : Splitting
-2022-10-16 21:16:34,947 [INFO] DecisionTreePySpark : Assembling
-2022-10-16 21:17:05,491 [INFO] DecisionTreePySpark : Train time 30.495005 seconds
-2022-10-16 21:17:05,492 [INFO] DecisionTreePySpark : Predicting
-2022-10-16 21:17:05,510 [INFO] DecisionTreePySpark : Predict time 0.018389 seconds
-2022-10-16 21:17:05,510 [INFO] DecisionTreePySpark : Get metrics
-2022-10-16 21:17:05,511 [INFO] DecisionTreeSklearn : Starting
-2022-10-16 21:17:05,511 [INFO] DecisionTreeSklearn : Training
-2022-10-16 21:17:05,511 [INFO] DecisionTreeSklearn : Setting X and y
-2022-10-16 21:17:05,545 [INFO] DecisionTreeSklearn : Splitting
-2022-10-16 21:17:13,444 [INFO] DecisionTreeSklearn : Train time 7.051712 seconds
-2022-10-16 21:17:13,444 [INFO] DecisionTreeSklearn : Predicting
-2022-10-16 21:17:13,542 [INFO] DecisionTreeSklearn : Predict time 0.097994 seconds
-2022-10-16 21:17:13,542 [INFO] DecisionTreeSklearn : Getting metrics
-2022-10-16 21:17:13,580 [INFO] LocalSparkSession : Stopping
+22/10/17 14:08:09 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2022-10-17 14:08:12,312 [INFO] Dataset : Starting
+2022-10-17 14:08:12,313 [INFO] Dataset : Create copy dataset/adult_1x.data
+2022-10-17 14:08:12,337 [INFO] Dataset : Loading Dataset dataset/adult_1x.data
+2022-10-17 14:08:16,231 [INFO] Dataset : Loading Pandas Dataset dataset/adult_1x.data
+2022-10-17 14:08:16,304 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:08:16,394 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:08:16,395 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:08:16,395 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:08:17,467 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:08:17,468 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:08:23,734 [INFO] DecisionTreePySpark : Train time 6.002245 seconds
+2022-10-17 14:08:23,734 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:08:23,767 [INFO] DecisionTreePySpark : Predict time 0.033431 seconds
+2022-10-17 14:08:23,768 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:08:23,768 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:08:23,768 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:08:23,768 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:08:23,770 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:08:23,816 [INFO] DecisionTreeSklearn : Train time 0.040012 seconds
+2022-10-17 14:08:23,816 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:08:23,819 [INFO] DecisionTreeSklearn : Predict time 0.003181 seconds
+2022-10-17 14:08:23,819 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:08:23,820 [INFO] Dataset : Delete copy dataset/adult_1x.data
+2022-10-17 14:08:23,820 [INFO] Dataset : Starting
+2022-10-17 14:08:23,821 [INFO] Dataset : Create copy dataset/adult_10x.data
+2022-10-17 14:08:24,046 [INFO] Dataset : Loading Dataset dataset/adult_10x.data
+2022-10-17 14:08:24,167 [INFO] Dataset : Loading Pandas Dataset dataset/adult_10x.data
+2022-10-17 14:08:24,752 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:08:24,838 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:08:24,838 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:08:24,838 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:08:24,949 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:08:24,949 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:08:32,346 [INFO] DecisionTreePySpark : Train time 7.291428 seconds
+2022-10-17 14:08:32,346 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:08:32,370 [INFO] DecisionTreePySpark : Predict time 0.024405 seconds
+2022-10-17 14:08:32,371 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:08:32,371 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:08:32,371 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:08:32,371 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:08:32,376 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:08:32,904 [INFO] DecisionTreeSklearn : Train time 0.475792 seconds
+2022-10-17 14:08:32,904 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:08:32,915 [INFO] DecisionTreeSklearn : Predict time 0.011369 seconds
+2022-10-17 14:08:32,916 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:08:32,919 [INFO] Dataset : Delete copy dataset/adult_10x.data
+2022-10-17 14:08:32,921 [INFO] Dataset : Starting
+2022-10-17 14:08:32,921 [INFO] Dataset : Create copy dataset/adult_20x.data
+2022-10-17 14:08:33,327 [INFO] Dataset : Loading Dataset dataset/adult_20x.data
+2022-10-17 14:08:33,408 [INFO] Dataset : Loading Pandas Dataset dataset/adult_20x.data
+2022-10-17 14:08:34,495 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:08:34,631 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:08:34,632 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:08:34,632 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:08:34,750 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:08:34,750 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:08:44,161 [INFO] DecisionTreePySpark : Train time 9.319606 seconds
+2022-10-17 14:08:44,161 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:08:44,190 [INFO] DecisionTreePySpark : Predict time 0.028579 seconds
+2022-10-17 14:08:44,190 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:08:44,190 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:08:44,190 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:08:44,191 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:08:44,199 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:08:45,390 [INFO] DecisionTreeSklearn : Train time 1.056237 seconds
+2022-10-17 14:08:45,390 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:08:45,413 [INFO] DecisionTreeSklearn : Predict time 0.022897 seconds
+2022-10-17 14:08:45,413 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:08:45,422 [INFO] Dataset : Delete copy dataset/adult_20x.data
+2022-10-17 14:08:45,425 [INFO] Dataset : Starting
+2022-10-17 14:08:45,425 [INFO] Dataset : Create copy dataset/adult_30x.data
+2022-10-17 14:08:46,057 [INFO] Dataset : Loading Dataset dataset/adult_30x.data
+2022-10-17 14:08:46,131 [INFO] Dataset : Loading Pandas Dataset dataset/adult_30x.data
+2022-10-17 14:08:47,762 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:08:47,960 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:08:47,960 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:08:47,960 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:08:48,074 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:08:48,074 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:09:00,609 [INFO] DecisionTreePySpark : Train time 12.447873 seconds
+2022-10-17 14:09:00,610 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:09:00,634 [INFO] DecisionTreePySpark : Predict time 0.023611 seconds
+2022-10-17 14:09:00,634 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:09:00,634 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:09:00,634 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:09:00,634 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:09:00,646 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:09:02,768 [INFO] DecisionTreeSklearn : Train time 1.890346 seconds
+2022-10-17 14:09:02,769 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:09:02,799 [INFO] DecisionTreeSklearn : Predict time 0.030248 seconds
+2022-10-17 14:09:02,799 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:09:02,811 [INFO] Dataset : Delete copy dataset/adult_30x.data
+2022-10-17 14:09:02,815 [INFO] Dataset : Starting
+2022-10-17 14:09:02,816 [INFO] Dataset : Create copy dataset/adult_40x.data
+2022-10-17 14:09:03,708 [INFO] Dataset : Loading Dataset dataset/adult_40x.data
+2022-10-17 14:09:03,766 [INFO] Dataset : Loading Pandas Dataset dataset/adult_40x.data
+2022-10-17 14:09:06,257 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:09:06,511 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:09:06,511 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:09:06,512 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:09:06,587 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:09:06,588 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:09:19,911 [INFO] DecisionTreePySpark : Train time 13.245539 seconds
+2022-10-17 14:09:19,911 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:09:19,930 [INFO] DecisionTreePySpark : Predict time 0.018021 seconds
+2022-10-17 14:09:19,930 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:09:19,930 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:09:19,930 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:09:19,930 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:09:19,945 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:09:22,430 [INFO] DecisionTreeSklearn : Train time 2.193026 seconds
+2022-10-17 14:09:22,430 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:09:22,466 [INFO] DecisionTreeSklearn : Predict time 0.036082 seconds
+2022-10-17 14:09:22,466 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:09:22,483 [INFO] Dataset : Delete copy dataset/adult_40x.data
+2022-10-17 14:09:22,488 [INFO] Dataset : Starting
+2022-10-17 14:09:22,488 [INFO] Dataset : Create copy dataset/adult_50x.data
+2022-10-17 14:09:23,486 [INFO] Dataset : Loading Dataset dataset/adult_50x.data
+2022-10-17 14:09:23,541 [INFO] Dataset : Loading Pandas Dataset dataset/adult_50x.data
+2022-10-17 14:09:26,278 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:09:26,558 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:09:26,558 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:09:26,558 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:09:26,615 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:09:26,616 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:09:42,441 [INFO] DecisionTreePySpark : Train time 15.765809 seconds
+2022-10-17 14:09:42,441 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:09:42,458 [INFO] DecisionTreePySpark : Predict time 0.016918 seconds
+2022-10-17 14:09:42,459 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:09:42,459 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:09:42,459 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:09:42,459 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:09:42,476 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:09:46,072 [INFO] DecisionTreeSklearn : Train time 3.136622 seconds
+2022-10-17 14:09:46,072 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:09:46,130 [INFO] DecisionTreeSklearn : Predict time 0.05749 seconds
+2022-10-17 14:09:46,130 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:09:46,150 [INFO] Dataset : Delete copy dataset/adult_50x.data
+2022-10-17 14:09:46,159 [INFO] Dataset : Starting
+2022-10-17 14:09:46,159 [INFO] Dataset : Create copy dataset/adult_60x.data
+2022-10-17 14:09:47,380 [INFO] Dataset : Loading Dataset dataset/adult_60x.data
+2022-10-17 14:09:47,431 [INFO] Dataset : Loading Pandas Dataset dataset/adult_60x.data
+2022-10-17 14:09:50,622 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:09:50,957 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:09:50,957 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:09:50,958 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:09:51,130 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:09:51,130 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:10:10,181 [INFO] DecisionTreePySpark : Train time 18.995138 seconds
+2022-10-17 14:10:10,181 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:10:10,195 [INFO] DecisionTreePySpark : Predict time 0.013356 seconds
+2022-10-17 14:10:10,195 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:10:10,195 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:10:10,196 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:10:10,196 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:10:10,216 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:10:14,281 [INFO] DecisionTreeSklearn : Train time 3.630303 seconds
+2022-10-17 14:10:14,281 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:10:14,341 [INFO] DecisionTreeSklearn : Predict time 0.05939 seconds
+2022-10-17 14:10:14,341 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:10:14,366 [INFO] Dataset : Delete copy dataset/adult_60x.data
+2022-10-17 14:10:14,376 [INFO] Dataset : Starting
+2022-10-17 14:10:14,376 [INFO] Dataset : Create copy dataset/adult_70x.data
+2022-10-17 14:10:15,844 [INFO] Dataset : Loading Dataset dataset/adult_70x.data
+2022-10-17 14:10:15,894 [INFO] Dataset : Loading Pandas Dataset dataset/adult_70x.data
+2022-10-17 14:10:19,655 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:10:20,044 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:10:20,044 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:10:20,044 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:10:20,086 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:10:20,086 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:10:42,063 [INFO] DecisionTreePySpark : Train time 21.920659 seconds
+2022-10-17 14:10:42,063 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:10:42,081 [INFO] DecisionTreePySpark : Predict time 0.018003 seconds
+2022-10-17 14:10:42,082 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:10:42,082 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:10:42,082 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:10:42,082 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:10:42,107 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:10:47,219 [INFO] DecisionTreeSklearn : Train time 4.518028 seconds
+2022-10-17 14:10:47,219 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:10:47,289 [INFO] DecisionTreeSklearn : Predict time 0.069713 seconds
+2022-10-17 14:10:47,289 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:10:47,315 [INFO] Dataset : Delete copy dataset/adult_70x.data
+2022-10-17 14:10:47,329 [INFO] Dataset : Starting
+2022-10-17 14:10:47,329 [INFO] Dataset : Create copy dataset/adult_80x.data
+2022-10-17 14:10:49,025 [INFO] Dataset : Loading Dataset dataset/adult_80x.data
+2022-10-17 14:10:49,079 [INFO] Dataset : Loading Pandas Dataset dataset/adult_80x.data
+2022-10-17 14:10:53,682 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:10:54,224 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:10:54,224 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:10:54,224 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:10:54,320 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:10:54,320 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:11:19,924 [INFO] DecisionTreePySpark : Train time 25.548228 seconds
+2022-10-17 14:11:19,925 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:11:19,941 [INFO] DecisionTreePySpark : Predict time 0.016427 seconds
+2022-10-17 14:11:19,941 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:11:19,942 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:11:19,942 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:11:19,942 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:11:19,971 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:11:25,995 [INFO] DecisionTreeSklearn : Train time 5.369713 seconds
+2022-10-17 14:11:25,995 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:11:26,073 [INFO] DecisionTreeSklearn : Predict time 0.078062 seconds
+2022-10-17 14:11:26,073 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:11:26,100 [INFO] Dataset : Delete copy dataset/adult_80x.data
+2022-10-17 14:11:26,114 [INFO] Dataset : Starting
+2022-10-17 14:11:26,114 [INFO] Dataset : Create copy dataset/adult_90x.data
+2022-10-17 14:11:28,064 [INFO] Dataset : Loading Dataset dataset/adult_90x.data
+2022-10-17 14:11:28,104 [INFO] Dataset : Loading Pandas Dataset dataset/adult_90x.data
+2022-10-17 14:11:32,937 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:11:33,475 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:11:33,476 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:11:33,476 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:11:33,560 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:11:33,560 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:12:07,064 [INFO] DecisionTreePySpark : Train time 33.443788 seconds
+2022-10-17 14:12:07,064 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:12:07,085 [INFO] DecisionTreePySpark : Predict time 0.020687 seconds
+2022-10-17 14:12:07,086 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:12:07,086 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:12:07,086 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:12:07,086 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:12:07,120 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:12:15,467 [INFO] DecisionTreeSklearn : Train time 7.511597 seconds
+2022-10-17 14:12:15,467 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:12:15,556 [INFO] DecisionTreeSklearn : Predict time 0.088656 seconds
+2022-10-17 14:12:15,556 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:12:15,588 [INFO] Dataset : Delete copy dataset/adult_90x.data
+2022-10-17 14:12:15,605 [INFO] Dataset : Starting
+2022-10-17 14:12:15,606 [INFO] Dataset : Create copy dataset/adult_100x.data
+2022-10-17 14:12:17,778 [INFO] Dataset : Loading Dataset dataset/adult_100x.data
+2022-10-17 14:12:17,824 [INFO] Dataset : Loading Pandas Dataset dataset/adult_100x.data
+2022-10-17 14:12:23,807 [INFO] Dataset : Select Only Numerical Features
+2022-10-17 14:12:24,476 [INFO] DecisionTreePySpark : Starting
+2022-10-17 14:12:24,476 [INFO] DecisionTreePySpark : Training
+2022-10-17 14:12:24,476 [INFO] DecisionTreePySpark : Setting Labeled Point
+2022-10-17 14:12:24,552 [INFO] DecisionTreePySpark : Splitting
+2022-10-17 14:12:24,553 [INFO] DecisionTreePySpark : Assembling
+2022-10-17 14:13:02,364 [INFO] DecisionTreePySpark : Train time 37.75624 seconds
+2022-10-17 14:13:02,364 [INFO] DecisionTreePySpark : Predicting
+2022-10-17 14:13:02,383 [INFO] DecisionTreePySpark : Predict time 0.01824 seconds
+2022-10-17 14:13:02,383 [INFO] DecisionTreePySpark : Get metrics
+2022-10-17 14:13:02,383 [INFO] DecisionTreeSklearn : Starting
+2022-10-17 14:13:02,383 [INFO] DecisionTreeSklearn : Training
+2022-10-17 14:13:02,383 [INFO] DecisionTreeSklearn : Setting X and y
+2022-10-17 14:13:02,422 [INFO] DecisionTreeSklearn : Splitting
+2022-10-17 14:13:11,011 [INFO] DecisionTreeSklearn : Train time 7.5043 seconds
+2022-10-17 14:13:11,011 [INFO] DecisionTreeSklearn : Predicting
+2022-10-17 14:13:11,106 [INFO] DecisionTreeSklearn : Predict time 0.09414 seconds
+2022-10-17 14:13:11,106 [INFO] DecisionTreeSklearn : Getting metrics
+2022-10-17 14:13:11,134 [INFO] Dataset : Delete copy dataset/adult_100x.data
+2022-10-17 14:13:11,154 [INFO] LocalSparkSession : Stopping
 (venv) (base) marcelovasconcellos@Mac-Pro-de-MARCELO 8INF919_Devoir1_Classification-distribuee-par-arbre-de-decision % 
