@@ -59,13 +59,15 @@ for f in multiplication_factors:
     metrics.append(metric)
 
     log(f"Metrics: Clusters {metric['number_of_cores']} - Dataset size {metric['dataset_size_num']}x - Time {metric['time']} seconds")
-    now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
-    df = pd.DataFrame.from_dict(metrics)
-    df.to_csv(f'results/{ENVIRONMENT}_NUMBER_OF_CORES_{number_of_core}_{f}_{now}_TEMP.csv')
+
+    # now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
+    # df = pd.DataFrame.from_dict(metrics)
+    # df.to_csv(f'results/Garantie-du-passage-a-l-echelle_{ENVIRONMENT}_{number_of_core}_CORES_{f}X_{now}_TEMP.csv')
+
     dataset.delete_copy(f'dataset/adult_{f}x.data')
 
 spark.stop()
 
 now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
 df = pd.DataFrame.from_dict(metrics)
-df.to_csv(f'results/{ENVIRONMENT}_NUMBER_OF_CORES_{number_of_core}_{now}.csv')
+df.to_csv(f'results/Garantie-du-passage-a-l-echelle_{ENVIRONMENT}_{number_of_core}_CORES__{now}.csv')

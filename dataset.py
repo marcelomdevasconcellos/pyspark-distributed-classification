@@ -68,7 +68,7 @@ class Dataset:
         log(f'Dataset : Delete copy {new_filename}')
         os.remove(new_filename)
 
-    def load(self, pandas=False):
+    def load(self):
         log(f'Dataset : Loading Dataset {self.filename}')
         self.schema = StructType([
             StructField("age", IntegerType(), True),
@@ -112,8 +112,7 @@ class Dataset:
                     TRIM(native_country) AS native_country
             FROM Adults""")
         log(f'Dataset : Loading Pandas Dataset {self.filename}')
-        if pandas:
-            self.df_pandas = pd.read_csv(self.filename, header=0, names=columns)
+        self.df_pandas = pd.read_csv(self.filename, header=0, names=columns)
 
 
     def one_hot_encode(self, column_name):

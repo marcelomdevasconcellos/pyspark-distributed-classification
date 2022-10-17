@@ -1,2 +1,0 @@
-,dataset_size_num,dataset_size,pyspark_time,pyspark_train_time,pyspark_predict_time,sklearn_time,sklearn_train_time,sklearn_predict_time
-0,1,3606463,5.048896,5.02198,0.026916,0.037717,0.035329,0.002388

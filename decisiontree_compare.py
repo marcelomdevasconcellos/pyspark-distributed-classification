@@ -44,7 +44,7 @@ for f in multiplication_factors:
         f'dataset/adult.data',
         num_fields, categorical_fields, target)
     dataset.create_copy(f'dataset/adult_{f}x.data', f, update_filename=True)
-    dataset.load(pandas=True)
+    dataset.load()
     dataset.select_only_numerical_features()
 
     df = dataset.df
@@ -75,9 +75,9 @@ for f in multiplication_factors:
 
     metrics.append(metric_dict)
 
-    now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
-    df = pd.DataFrame.from_dict(metrics)
-    df.to_csv(f'results/{ENVIRONMENT}_COMPARE_{number_of_core}_{f}_{now}_TEMP.csv')
+    # now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
+    # df = pd.DataFrame.from_dict(metrics)
+    # df.to_csv(f'results/{ENVIRONMENT}_COMPARE_{number_of_core}_{f}_{now}_TEMP.csv')
 
     dataset.delete_copy(f'dataset/adult_{f}x.data')
 
@@ -85,4 +85,4 @@ spark.stop()
 
 now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
 df = pd.DataFrame.from_dict(metrics)
-df.to_csv(f'results/{ENVIRONMENT}_COMPARE_{number_of_core}_{now}.csv')
+df.to_csv(f'results/Decisiontree_compare_{ENVIRONMENT}_{number_of_core}_CORES_{now}.csv')

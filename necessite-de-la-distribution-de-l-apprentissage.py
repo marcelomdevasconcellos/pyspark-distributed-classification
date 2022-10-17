@@ -62,11 +62,12 @@ for number_of_cores in numbers_of_cores:
 
     spark.stop()
 
-    now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
-    df = pd.DataFrame.from_dict(metrics)
-    df.to_csv(f'results/{ENVIRONMENT}_DATASETSIZE_{multiplication_factor}_{number_of_cores}_{now}_TEMP.csv')
+    # now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
+    # df = pd.DataFrame.from_dict(metrics)
+    # df.to_csv(f'results/Necessite-de-la-distribution-de-l-apprentissage_{ENVIRONMENT}_{multiplication_factor}x_{number_of_cores}_CORES_{now}_TEMP.csv')
+
     dataset.delete_copy(f'dataset/adult_{multiplication_factor}x.data')
 
 now = str(datetime.datetime.now()).replace(':', '_').replace(',', '_').replace('.', '_').replace(' ', '_')
 df = pd.DataFrame.from_dict(metrics)
-df.to_csv(f'results/{ENVIRONMENT}_DATASETSIZE_{multiplication_factor}_{now}.csv')
+df.to_csv(f'results/Necessite-de-la-distribution-de-l-apprentissage_{ENVIRONMENT}_{multiplication_factor}x_{now}.csv')
