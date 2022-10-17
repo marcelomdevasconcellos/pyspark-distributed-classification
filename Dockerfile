@@ -38,4 +38,4 @@ CMD ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0",  "--no-browser"]
 # docker build -t "pyspark-distributed-classification:latest" .
 # docker tag pyspark-distributed-classification:latest marcelovasconcellos/pyspark-distributed-classification:latest
 # docker push marcelovasconcellos/pyspark-distributed-classification:latest
-# docker run -d -p 8888:8888 --memory=2GB --oom-kill-disable "pyspark-distributed-classification:latest"
+# docker run -d -p 8888:8888 --memory=8GB "pyspark-distributed-classification:latest"
