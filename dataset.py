@@ -111,7 +111,11 @@ class Dataset:
                     INT(hours_per_week) AS hours_per_week,
                     TRIM(native_country) AS native_country
             FROM Adults""")
-        self.df_pandas = pd.read_csv(self.filename, header=0, names=columns)
+        log(f'Dataset : Loading Pandas Dataset {self.filename}')
+        try:
+            self.df_pandas = pd.read_csv(self.filename, header=0, names=columns)
+        except:
+            self.df_pandas = None
 
     def one_hot_encode(self, column_name):
         distinct_values = self.df.select(column_name) \

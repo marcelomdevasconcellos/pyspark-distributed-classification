@@ -63,13 +63,19 @@ for f in multiplication_factors:
     dt_pyspark = None
 
     # SKLearn
-    dt_sklearn = DecisionTreeSklearn(df_pandas)
-    dt_sklearn.train()
-    dt_sklearn.predict()
-    m = dt_sklearn.get_metrics()
-    metric_dict['sklearn_time'] = m['time']
-    metric_dict['sklearn_train_time'] = m['train_time']
-    metric_dict['sklearn_predict_time'] = m['predict_time']
+    if df_pandas != None:
+        dt_sklearn = DecisionTreeSklearn(df_pandas)
+        dt_sklearn.train()
+        dt_sklearn.predict()
+        m = dt_sklearn.get_metrics()
+        metric_dict['sklearn_time'] = m['time']
+        metric_dict['sklearn_train_time'] = m['train_time']
+        metric_dict['sklearn_predict_time'] = m['predict_time']
+    else:
+        metric_dict['sklearn_time'] = -1
+        metric_dict['sklearn_train_time'] = -1
+        metric_dict['sklearn_predict_time'] = -1
+
     dt_sklearn = None
 
     metrics.append(metric_dict)
