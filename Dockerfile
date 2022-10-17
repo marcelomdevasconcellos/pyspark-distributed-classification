@@ -1,8 +1,8 @@
 FROM ubuntu:20.04
 
-COPY . /classification_distribuee
+COPY . /pyspark_distributed_classification
 
-WORKDIR ./classification_distribuee
+WORKDIR ./pyspark_distributed_classification
 
 RUN apt update
 RUN apt -y upgrade
@@ -28,10 +28,12 @@ RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install setuptools==57.4.0
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
+COPY env_docker .env
+
 EXPOSE 8888
 EXPOSE 4040
 
-# CMD ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0",  "--no-browser"]
+CMD ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0",  "--no-browser"]
 
 # docker build -t "pyspark-distributed-classification:latest" .
 # docker tag pyspark-distributed-classification:latest marcelovasconcellos/pyspark-distributed-classification:latest
