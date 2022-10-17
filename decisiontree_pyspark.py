@@ -1,22 +1,12 @@
-from log import log
 from datetime import datetime
-from sklearn.impute import SimpleImputer
-from pyspark.sql.functions import lit
-from pyspark.sql.functions import col, sum
-from pyspark.sql.functions import udf, col
-from pyspark.sql.types import IntegerType
-from pyspark.sql import SparkSession
-from pyspark import SparkContext
-from pyspark.ml.classification import DecisionTreeClassifier
+
 from pyspark.ml.evaluation import BinaryClassificationEvaluator
 from pyspark.ml.feature import VectorAssembler
-from pyspark.mllib.tree import DecisionTree, DecisionTreeModel
-from pyspark.mllib.util import MLUtils
-from pyspark.mllib.regression import LabeledPoint
-from pyspark.mllib.evaluation import BinaryClassificationMetrics
-from pyspark.ml import Pipeline
 from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
-from pyspark.sql.types import StructType, StructField, IntegerType, StringType, LongType
+from pyspark.mllib.regression import LabeledPoint
+from pyspark.mllib.tree import DecisionTree
+
+from log import log
 
 DEFAULT_PARAMETERS = {
     'numClasses': 2,

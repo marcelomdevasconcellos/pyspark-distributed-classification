@@ -1,12 +1,10 @@
-from log import log
 from datetime import datetime
-from sklearn.model_selection import cross_validate
-from sklearn import decomposition, datasets
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.pipeline import Pipeline
+
 from sklearn.model_selection import GridSearchCV, train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+from sklearn.tree import DecisionTreeClassifier
+
+from log import log
 
 
 class DecisionTreeSklearn:
@@ -45,10 +43,10 @@ class DecisionTreeSklearn:
             steps=[('dt', dt), ])
         if not parameters:
             parameters = dict(
-                #df__criterion=['entropy', ],
+                # df__criterion=['entropy', ],
                 dt__max_depth=[10, 20, 30, 40, 50, 60, 70],
-                #dt__min_samples_split=[1, 2, 3],
-                #dt__max_features=[16, 32, 64]
+                # dt__min_samples_split=[1, 2, 3],
+                # dt__max_features=[16, 32, 64]
             )
         time_initial = datetime.now()
         self.model = GridSearchCV(pipe, parameters)

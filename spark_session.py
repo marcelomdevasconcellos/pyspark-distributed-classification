@@ -1,20 +1,7 @@
-import matplotlib
-import numpy as np
-import pandas as pd
-from log import log
 from pyspark import StorageLevel
-import pyspark
-from sklearn.impute import SimpleImputer
-from pyspark.sql.functions import lit
-from pyspark.sql.functions import col, sum
-from pyspark.sql.functions import udf, col
-from pyspark.sql.types import IntegerType
 from pyspark.sql import SparkSession
-from pyspark import SparkContext
-from pyspark.mllib.tree import DecisionTree, DecisionTreeModel
-from pyspark.mllib.util import MLUtils
-from pyspark.mllib.regression import LabeledPoint
-from pyspark.sql.types import StructType, StructField, IntegerType, StringType, LongType
+
+from log import log
 
 
 class LocalSparkSession:
@@ -29,8 +16,6 @@ class LocalSparkSession:
             .master(f"local[{self.num_clusters}]") \
             .appName("8INF919D1") \
             .getOrCreate()
-            # .config("spark.sql.debug.maxToStringFields", "-1") \
-            # .config("spark.sql.autoBroadcastJoinThreshold", "-1") \
         self.spark.sparkContext.setLogLevel("OFF")
         self.sc = self.spark.sparkContext.getOrCreate()
         rdd1 = self.sc.parallelize([1, 2])
