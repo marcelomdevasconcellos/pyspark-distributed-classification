@@ -9,7 +9,7 @@ logger.setLevel(logging.INFO)
 
 formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
 
-fh = logging.FileHandler('log/mapreducetree.log', mode='w', encoding='utf-8')
+fh = logging.FileHandler('log/local.txt', mode='w', encoding='utf-8')
 fh.setLevel(logging.INFO)
 fh.setFormatter(formatter)
 logger.addHandler(fh)
