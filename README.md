@@ -10,7 +10,23 @@ Département d’Informatique et de Mathématique
 
 MEDM28048006 - Marcelo Medeiros de Vasconcellos
 
-## 1. Pour construire une image docker 
+# 1. Instalation
+
+## 1.1. Shell script 
+
+Exécutez les commandes via ssh
+
+```
+sudo apt install git -y
+git clone https://github.com/marcelomdevasconcellos/pyspark-distributed-classification pyspark-distributed-classification
+cd pyspark-distributed-classification/
+chmod 777 install.sh 
+./install.sh
+```
+
+## 1.2. Docker
+
+### 1.2.1 Pour construire une image docker 
 
 vous devez avoir installé docker desktop sur votre ordinateur
 
@@ -18,13 +34,13 @@ vous devez avoir installé docker desktop sur votre ordinateur
 docker build -t "pyspark-distributed-classification:latest" .
 ```
 
-## 2. Pour exécuter l'image docker
+### 1.2.2. Pour exécuter l'image docker
 
 ```
 docker run -p 8888:8888 --memory=8GB "pyspark-distributed-classification:latest"
 ```
 
-## 3. Exécution des commandes
+# 2. Exécution des commandes
 
 Vous devrez avoir accès à Docker-CLI pour exécuter les commandes directement dans le terminal.
 
